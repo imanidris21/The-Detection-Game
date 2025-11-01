@@ -1,0 +1,20 @@
+
+# Python / Streamlit cache
+__pycache__/
+*.pyc
+.streamlit/
+
+# Local data & logs
+src/results.db
+src/detector_preds.csv
+
+# Large datasets
+data/images/
+data/images_resized/
+
+# Model files (typically large)
+models/
+
+# System files
+.DS_Store
+Thumbs.db

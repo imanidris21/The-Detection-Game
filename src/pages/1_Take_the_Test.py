@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from utils import (load_images_meta, load_detector_preds, init_db, get_engine,
                    make_pid, register_participant, save_vote, mark_finished, IMAGES_DIR, NUM_TRIALS,
                    get_trial_images)
-from models.detector import get_detector
+from detector import get_detector
 
 
 st.set_page_config(page_title="Take the Test", layout="wide", initial_sidebar_state="collapsed")

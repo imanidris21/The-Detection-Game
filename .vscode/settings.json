@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "~/anaconda3/envs/hvsai/bin/python",
+    "terminal.integrated.env.osx": {
+        "CONDA_DEFAULT_ENV": "hvsai"
+    }
+}
