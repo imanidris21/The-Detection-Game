@@ -1,21 +1,16 @@
-# pip install -r requirements.txt
-
 # Core dependencies
-streamlit==1.50.0
-pandas==2.2.2
-sqlalchemy==2.0.23
-pillow==10.4.0
-matplotlib==3.9.2
-scikit-learn==1.5.2
-statsmodels==0.14.3
+streamlit
+pandas
+sqlalchemy
+pillow
+plotly
 
-# AI/ML dependencies for DINOv2 detector
-torch>=2.0.0
-torchvision>=0.15.0
-numpy>=1.21.0
+# AI/ML dependencies
+torch
+torchvision
+numpy
 
-# Additional utilities
-plotly>=5.15.0
-
-# Force refresh - Nov 10, 2025
+# Additional packages
+matplotlib
+scikit-learn
 
