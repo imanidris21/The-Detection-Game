@@ -15,12 +15,13 @@ class Config:
     UPLOAD_DIR = DATA_DIR / "uploads"
     MODELS_DIR = BASE_DIR / "models"
 
-    # Fallback to current directory structure if data dir doesn't exist
-    if not IMAGES_DIR.exists():
-        IMAGES_DIR = BASE_DIR / "images_resized"
+    # Ensure essential directories exist
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+    MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
     # Database configuration
-    DB_PATH = DATA_DIR / "results.db" if DATA_DIR.exists() else BASE_DIR / "results.db"
+    DB_PATH = DATA_DIR / "results.db"
 
     # Experiment settings
     NUM_TRIALS = int(os.getenv("NUM_TRIALS", "10"))

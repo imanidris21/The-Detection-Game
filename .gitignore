@@ -58,7 +58,6 @@ detector_preds.csv
 data/images/
 data/images_resized/
 data/art_subset_1000/images/
-data/art_testset/
 # Keep metadata files
 !data/art_subset_1000/metadata.csv
 !data/art_subset_1000/README.md
