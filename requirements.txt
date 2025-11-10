@@ -16,3 +16,4 @@ numpy>=1.21.0
 
 # Additional utilities
 plotly>=5.15.0
+
