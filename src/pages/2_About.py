@@ -1,23 +1,33 @@
 # pages/2_About.py
 import streamlit as st
 
-from components.navbar import top_nav, handle_fallback_switch
-from datetime import datetime, timezone
-
 st.set_page_config(page_title="About", layout="wide", initial_sidebar_state="collapsed")
-top_nav("About")
-handle_fallback_switch()
 
 
-st.title("About / FAQ")
+st.title("About This Study")
 st.markdown("""
-This experiment compares human ability to identify AI-generated artworks with an automated detector.
+------------------------------------------
 
-**What we collect:** anonymous participant id, questionnaire responses, per-image choice, confidence, response time.
+AI-generated artworks are becoming extremely sophisticated,  presenting both opportunities and challenges for the creative community.  
 
-**How images are handled:** images are anonymised thumbnails, metadata stripped. If you want to withdraw, provide your participant id and contact the researcher.
+#### The Challenge We Face:
+With the rapid advancement of AI technologies, distinguishing between AI-generated and human-made artworks has become increasingly difficult. This raises important questions about authenticity, copyrights, and the future of art.
+        
+#### Why This Matters:
+            
+The ability to identify AI-generated and human-made artworks is crucial for several reasons:
+- **Preserving Artistic Integrity:** Artists deserve recognition and protection for their original work, and consumers have the right to know the true origin of the art they appreciate and purchase.
+- **Digital Media and Platforms Regulation:** As AI-generated content becomes more prevalent, maintaining trust in visual media requires reliable detection methods.
+- **Informed Decision-Making:** Enabling collectors, galleries, and institutions to make informed decisions about acquisitions and exhibitions.
+- **Combating Misinformation:** Preventing the spread of misleading information regarding the origin of artworks.
+- **Copyright and Policy:** Understanding image provenance is essential for copyright protection and preventing unauthorised use of creative works.
 
-**FAQ**
-- Q: How many images? A: Controlled by NUM_TRIALS (utils.py).
-- Q: Can I stop anytime? A: Yes; completed trials are recorded.
-""")
+------------------------------------------
+            
+#### Explaining Terminology:
+
+- **AI-generated Artwork:** In the context of this study, AI-generated artworks refer to images created by artificial intelligence models (such as Stable Diffusion, Midjourney, or DALL-E) that transform text prompts into images through computational processes.
+
+- **Human-made Artwork:** In the context of this study, human-made artworks refer to images created primarily by a human artist using traditional or digital tools (such as paint, pencil, photography, or digital drawing and editing software), without significant assistance from AI algorithms.
+
+""", unsafe_allow_html=True)

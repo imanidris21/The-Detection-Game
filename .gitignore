@@ -1,20 +1,91 @@
 
-# Python / Streamlit cache
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Streamlit
 .streamlit/
+.streamlit/secrets.toml
 
-# Local data & logs
-src/results.db
-src/detector_preds.csv
+# IDE
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+.idea/
+*.swp
+*.swo
+*~
 
-# Large datasets
+# Logs and databases
+*.log
+*.db
+*.sqlite
+*.sqlite3
+results.db
+detector_preds.csv
+
+# Large datasets (keep structure, ignore images)
 data/images/
 data/images_resized/
+data/art_subset_1000/images/
+data/art_testset/
+# Keep metadata files
+!data/art_subset_1000/metadata.csv
+!data/art_subset_1000/README.md
+!data/art_testset_metadata.csv
 
 # Model files (typically large)
-models/
+models/*.pt
+models/*.pth
+models/*.pkl
+models/*.h5
+models/*.onnx
 
 # System files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# Documentation build
+docs/_build/
+site/

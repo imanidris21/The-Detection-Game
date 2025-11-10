@@ -1,55 +1,54 @@
 # Home.py
 # streamlit run src/home.py
-import streamlit as st
-from utils import init_db, load_images_meta
-from components.navbar import top_nav, handle_fallback_switch
 
-st.set_page_config(page_title="Human vs AI — Home", layout="wide", initial_sidebar_state="collapsed")
+
+import streamlit as st
+from backend.utils import init_db, load_images_meta
+
+st.set_page_config(page_title="The detection Game — Home", layout="wide", initial_sidebar_state="collapsed")
 
 
 # Initialize database and load data
 init_db()
-top_nav("Home")
-handle_fallback_switch()
 
 # Main content
-st.title("Detecting the Diffused — Human or Machine?")
+st.markdown("<h1 style='text-align: center;'>Human or Machine?</h1>", unsafe_allow_html=True)
 
 st.markdown("""
-### Welcome to the Human vs AI Detection Experiment
+<div style='text-align: center; max-width: 800px; margin: 0 auto; padding: 0 2rem;'>
+<h3>Do you think you can spot the AI-generated artworks and beat our AI Detector</h3>
 
-This project compares human ability to identify AI-generated artworks with an automated detector.
-Participate in our study to test your skills against machine learning algorithms!
+</div>
+""", unsafe_allow_html=True)
 
-**How it works:**
-1. Take the test to classify artworks as human-made or AI-generated
-2. View your results compared to our AI detector
-3. See how you rank against other participants on the leaderboard
+# Simple styling
+st.markdown("""
+<style>
+/* Button styling */
+.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 2rem !important;
+}
+.stButton > button {
+    background-color: #0066cc !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+.stButton > button:hover {
+    background-color: #0052a3 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-Use the navigation bar above to get started.
-""")
+col1, col2, col3 = st.columns([2, 1, 2])
+with col2:
+    if st.button("Start the Game", type="primary"):
+        st.switch_page("pages/1_Take_the_Test.py")
 
-# Display dataset information
-meta = load_images_meta()
-if not meta.empty:
-    col1, col2, col3 = st.columns(3)
+# st.markdown("---")
 
-    with col1:
-        st.metric("Total Images", len(meta))
-
-    with col2:
-        human_count = len(meta[meta['true_label'] == 'human'])
-        st.metric("Human Artworks", human_count)
-
-    with col3:
-        ai_count = len(meta[meta['true_label'] == 'ai'])
-        st.metric("AI Artworks", ai_count)
-
-    # Show style breakdown if available
-    if 'style' in meta.columns:
-        st.markdown("### Dataset Breakdown by Style")
-        style_counts = meta['style'].value_counts()
-        st.bar_chart(style_counts)
-
-else:
-    st.warning("No image metadata found. Please ensure images_metadata.csv is properly configured.")
