@@ -58,9 +58,10 @@ detector_preds.csv
 data/images/
 data/images_resized/
 data/art_subset_1000/images/
+
 # Keep metadata files
-!data/art_subset_1000/metadata.csv
-!data/art_subset_1000/README.md
+# !data/art_subset_1000/metadata.csv
+# !data/art_subset_1000/README.md
 !data/art_testset_metadata.csv
 
 # Model files (typically large)
