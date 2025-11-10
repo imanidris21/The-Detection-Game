@@ -1,15 +1,15 @@
-# The Detection Game 🎯
+# The Detection Game 
 
-A platform for studying human vs AI performance in detecting AI-generated artwork.
+This Streamlit platform is for studying human vs AI performance in detecting AI-generated artwork.
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 pip install -r requirements.txt
 streamlit run src/Home.py
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── src/                    # Main application code
