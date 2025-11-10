@@ -17,3 +17,5 @@ numpy>=1.21.0
 # Additional utilities
 plotly>=5.15.0
 
+# Force refresh - Nov 10, 2025
+
