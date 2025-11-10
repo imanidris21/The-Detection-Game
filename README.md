@@ -37,11 +37,6 @@ streamlit run src/Home.py
 - **Secure Dataset**: Balanced AI generators with no filename leakage
 - **Generator Analysis**: Performance by AI model (DALL-E, Midjourney, etc.)
 
-##  Security Features
-
-- **Filename Anonymization**: No data leakage from image names
-- **Fallback Mode Removed**: Eliminates filename-based cheating
-- **Balanced Dataset**: Equal representation across 6 AI generators
 
 ## The testset
 
