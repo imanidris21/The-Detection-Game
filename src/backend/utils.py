@@ -50,8 +50,6 @@ def init_db():
             participant_id TEXT PRIMARY KEY,
             started_at TEXT,
             finished_at TEXT,
-            device_type TEXT,
-            user_group TEXT,
 
             -- Pre-survey data
             pre_confidence TEXT,
@@ -95,14 +93,16 @@ def init_db():
             detector_confidence REAL,
             reasoning TEXT,
             generator_model TEXT,
-            art_style TEXT
+            art_style TEXT,
+            order_shown INTEGER
         )"""))
 
         # Migration: Add new columns if they don't exist
         new_columns = [
             "reasoning TEXT",
             "generator_model TEXT",
-            "art_style TEXT"
+            "art_style TEXT",
+            "order_shown INTEGER"
         ]
 
         for column in new_columns:
@@ -152,12 +152,12 @@ def register_participant(engine, pid, info: dict):
     with engine.begin() as conn:
         conn.execute(text("""
             INSERT OR REPLACE INTO participants
-            (participant_id, started_at, device_type, user_group,
+            (participant_id, started_at,
              pre_confidence, pre_training, user_type, years_experience, art_mediums,
              ai_familiarity, ai_frequency, difficulty, visual_cues, hardest_styles,
              labeling_importance, encountered_unlabeled, concerns, detection_value,
              visibility_impact, emotions, additional_comments)
-            VALUES (:participant_id, :started_at, :device_type, :user_group,
+            VALUES (:participant_id, :started_at,
                     :pre_confidence, :pre_training, :user_type, :years_experience, :art_mediums,
                     :ai_familiarity, :ai_frequency, :difficulty, :visual_cues, :hardest_styles,
                     :labeling_importance, :encountered_unlabeled, :concerns, :detection_value,
@@ -165,8 +165,6 @@ def register_participant(engine, pid, info: dict):
         """), [{
             "participant_id": pid,
             "started_at": now_utc_iso(),
-            "device_type": info.get("device_type"),
-            "user_group": info.get("user_group"),
 
             # Comprehensive survey fields
             "pre_confidence": info.get("pre_confidence"),
@@ -198,8 +196,8 @@ def mark_finished(engine, pid):
 def save_vote(engine, rec: dict):
     with engine.begin() as conn:
         conn.execute(text("""
-            INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style)
-            VALUES (:participant_id, :image_id, :true_label, :human_choice, :confidence, :response_time_ms, :timestamp_utc, :detector_pred, :detector_confidence, :reasoning, :generator_model, :art_style)
+            INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style, order_shown)
+            VALUES (:participant_id, :image_id, :true_label, :human_choice, :confidence, :response_time_ms, :timestamp_utc, :detector_pred, :detector_confidence, :reasoning, :generator_model, :art_style, :order_shown)
         """), [rec])
 
 def get_trial_images(images_meta, difficulty_mode="mixed", num_trials=None):
@@ -207,5 +205,5 @@ def get_trial_images(images_meta, difficulty_mode="mixed", num_trials=None):
     if num_trials is None:
         num_trials = NUM_TRIALS
 
-    # Always return random selection since difficulty is uniform
+    # Always return random selection of images
     return images_meta.sample(frac=1).head(num_trials)

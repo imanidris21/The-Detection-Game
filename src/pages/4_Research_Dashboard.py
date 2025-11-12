@@ -14,8 +14,8 @@ from backend.utils import init_db, get_engine, load_images_meta, load_detector_p
 
 st.set_page_config(page_title="Scientific Dashboard", layout="wide", initial_sidebar_state="collapsed")
 
-# 🔒 PASSWORD PROTECTION
-st.title("🔒 Scientific Research Dashboard")
+# PASSWORD PROTECTION
+st.title("Scientific Research Dashboard")
 st.markdown("*Restricted Access - For Authorized Researchers Only*")
 
 # Check if user is authenticated
@@ -35,12 +35,12 @@ if not st.session_state.authenticated:
 
             if password == admin_password:
                 st.session_state.authenticated = True
-                st.success("✅ Access granted! Reloading dashboard...")
+                st.success("Access granted! Reloading dashboard...")
                 st.rerun()
             else:
-                st.error("❌ Invalid password. Please contact the research team for access.")
+                st.error("Invalid password. Please contact the research team for access.")
         except KeyError:
-            st.error("🔧 Admin password not configured. Please contact the administrator.")
+            st.error("Admin password not configured. Please contact the administrator.")
             st.info("**For developers**: Add `admin_password` to your Streamlit secrets.")
 
     st.markdown("---")
@@ -50,7 +50,7 @@ if not st.session_state.authenticated:
 # Add logout button for authenticated users
 col1, col2, col3 = st.columns([1, 1, 8])
 with col1:
-    if st.button("🚪 Logout"):
+    if st.button("Logout"):
         st.session_state.authenticated = False
         st.rerun()
 
@@ -224,7 +224,7 @@ with tab2:
         st.write(f"Incorrect answers: {conf_corr[False]:.1%}")
 
 with tab3:
-    st.markdown("**🤖 AI Generator Model Analysis**")
+    st.markdown("**AI Generator Model Analysis**")
 
     # Check for new metadata fields
     has_generator_data = 'generator_model' in votes.columns and votes['generator_model'].notna().any()
@@ -238,7 +238,7 @@ with tab3:
             col1, col2 = st.columns(2)
 
             with col1:
-                st.markdown("**🎯 Detection Accuracy by AI Generator**")
+                st.markdown("**Detection Accuracy by AI Generator**")
 
                 # Calculate accuracy by generator
                 gen_accuracy = gen_votes.groupby('generator_model').agg({
@@ -260,8 +260,8 @@ with tab3:
                 if len(gen_accuracy) > 1:
                     hardest = gen_accuracy.iloc[-1]['generator_model']
                     easiest = gen_accuracy.iloc[0]['generator_model']
-                    st.success(f"👑 **Easiest to detect**: {easiest}")
-                    st.error(f"🎭 **Hardest to detect**: {hardest}")
+                    st.success(f"**Easiest to detect**: {easiest}")
+                    st.error(f"**Hardest to detect**: {hardest}")
 
             with col2:
                 # Visualization
@@ -290,7 +290,7 @@ with tab3:
             # Art Style Analysis (if available)
             if has_style_data:
                 st.markdown("---")
-                st.markdown("**🎨 Art Style Analysis**")
+                st.markdown("**Art Style Analysis**")
 
                 style_votes = gen_votes[gen_votes['art_style'].notna()].copy()
 
@@ -358,7 +358,7 @@ with tab4:
 
             # Show recent reasoning responses
             sample_reasoning = reasoning_votes.tail(10)[['image_id', 'human_choice', 'correct', 'reasoning']].copy()
-            sample_reasoning['status'] = sample_reasoning['correct'].map({True: '✅ Correct', False: '❌ Incorrect'})
+            sample_reasoning['status'] = sample_reasoning['correct'].map({True: 'Correct', False: 'Incorrect'})
 
             for _, row in sample_reasoning.iterrows():
                 st.write(f"**{row['status']}** ({row['human_choice']}): *{row['reasoning']}*")
@@ -528,8 +528,8 @@ st.markdown("---")
 st.subheader("👥 Participant Details")
 
 if st.checkbox("Show individual participant data"):
-    # Merge participant info with performance - include all current survey fields
-    participant_columns = ['participant_id', 'started_at', 'finished_at', 'device_type', 'user_group',
+    # Detailed participant data
+    participant_columns = ['participant_id', 'started_at', 'finished_at',
                           'pre_confidence', 'pre_training', 'user_type', 'years_experience', 'art_mediums',
                           'ai_familiarity', 'ai_frequency', 'difficulty', 'visual_cues', 'hardest_styles',
                           'labeling_importance', 'encountered_unlabeled', 'concerns', 'detection_value',
@@ -556,4 +556,4 @@ if st.checkbox("Show individual participant data"):
         )
 
 st.markdown("---")
-st.caption("🔒 Scientific Dashboard - Confidential Research Data")
+st.caption("Scientific Dashboard - Confidential Research Data")

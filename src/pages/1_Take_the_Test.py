@@ -181,8 +181,7 @@ if st.session_state.test_stage == "consent":
 
     # Consent form inputs
     with st.form("consent_form"):
-        # Set default values for removed demographic questions
-        user_group = "not_specified"
+        # Consent form - no additional data collection needed
 
         # Submit button
         st.markdown(" ")
@@ -193,10 +192,7 @@ if st.session_state.test_stage == "consent":
             st.session_state.test_stage = "pre_survey"
             pid = make_pid()
             st.session_state.participant_id = pid
-            st.session_state.participant_info.update({
-                "device_type": "unknown",
-                "user_group": user_group
-            })
+            # No additional info collected at consent stage
             register_participant(engine, pid, st.session_state.participant_info)
             st.rerun()
         elif submitted and not consent_agreed:
@@ -500,7 +496,8 @@ elif st.session_state.test_stage == "test":
                 "detector_confidence": detector_result["confidence"],
                 "reasoning": "Skipped - image seen before",
                 "generator_model": meta.get("generator_model", "unknown"),
-                "art_style": meta.get("art_style", "unknown")
+                "art_style": meta.get("art_style", "unknown"),
+                "order_shown": idx + 1
             }
             save_vote(engine, rec)
 
@@ -585,7 +582,8 @@ elif st.session_state.test_stage == "test":
                 "detector_confidence": detector_result["confidence"],
                 "reasoning": reasoning.strip() if reasoning else "",
                 "generator_model": meta.get("generator_model", "unknown"),
-                "art_style": meta.get("art_style", "unknown")
+                "art_style": meta.get("art_style", "unknown"),
+                "order_shown": idx + 1
             }
             save_vote(engine, rec)
 
@@ -904,7 +902,7 @@ elif st.session_state.test_stage == "results":
 
     # Contact information section
     st.subheader("Want to Learn More?")
-    st.write("If you want to know more about this research, email **imanidris21@gmail.com**")
+    st.write("If you want to know more about this research, please email **imanidris21@gmail.com**")
 
     st.markdown("---")
 
