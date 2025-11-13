@@ -68,11 +68,13 @@ def get_engine():
         return create_engine(f"sqlite:///{DB_PATH}", connect_args={"check_same_thread": False})
 
 @safe_db_operation
-def init_db():
-    engine = get_engine()
+def init_db(engine=None):
+    if engine is None:
+        engine = get_engine()
 
     # Detect database type for schema compatibility
     is_postgresql = engine.dialect.name == 'postgresql'
+    logger.info(f"Initializing database with type: {engine.dialect.name}")
 
     with engine.begin() as conn:
         conn.execute(text("""
@@ -208,7 +210,7 @@ def register_participant(engine, pid, info: dict):
     if is_postgresql:
         logger.info("PostgreSQL detected - ensuring database is initialized...")
         try:
-            init_db()
+            init_db(engine)  # Pass the same engine instance
             logger.info("Database initialization completed successfully")
         except Exception as e:
             logger.error(f"Database initialization failed: {e}")
@@ -304,7 +306,7 @@ def save_vote(engine, rec: dict):
     if is_postgresql:
         logger.info("PostgreSQL detected - ensuring database is initialized...")
         try:
-            init_db()
+            init_db(engine)  # Pass the same engine instance
             logger.info("Database initialization completed successfully")
         except Exception as e:
             logger.error(f"Database initialization failed: {e}")
