@@ -16,7 +16,7 @@ st.set_page_config(page_title="Scientific Dashboard", layout="wide", initial_sid
 
 # PASSWORD PROTECTION
 st.title("Scientific Research Dashboard")
-st.markdown("*Restricted Access - For Authorized Researchers Only*")
+st.markdown("*Restricted Access*")
 
 # Check if user is authenticated
 if "authenticated" not in st.session_state:
@@ -24,7 +24,7 @@ if "authenticated" not in st.session_state:
 
 if not st.session_state.authenticated:
     st.markdown("### Admin Access Required")
-    st.markdown("Enter the admin password to access the research dashboard:")
+    st.markdown("Enter password to access the research dashboard:")
 
     password = st.text_input("Password", type="password", key="admin_password")
 
@@ -43,8 +43,6 @@ if not st.session_state.authenticated:
             st.error("Admin password not configured. Please contact the administrator.")
             st.info("**For developers**: Add `admin_password` to your Streamlit secrets.")
 
-    st.markdown("---")
-    st.info("👥 **For study participants**: Please use the main [Leaderboard](3_Leaderboard) to view your results.")
     st.stop()
 
 # Add logout button for authenticated users
