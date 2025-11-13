@@ -5,6 +5,9 @@ sqlalchemy
 pillow
 plotly
 
+# Database dependencies
+psycopg2-binary
+
 # AI/ML dependencies
 torch
 torchvision

@@ -23,6 +23,10 @@ class Config:
     # Database configuration
     DB_PATH = DATA_DIR / "results.db"
 
+    # Environment detection
+    IS_STREAMLIT_CLOUD = os.getenv("STREAMLIT_CLOUD", "false").lower() == "true" or os.getenv("HOME") == "/mount/src"
+    IS_LOCAL_DEV = not IS_STREAMLIT_CLOUD
+
     # Experiment settings
     NUM_TRIALS = int(os.getenv("NUM_TRIALS", "10"))
 

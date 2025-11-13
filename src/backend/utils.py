@@ -39,11 +39,33 @@ def safe_db_operation(func):
 
 # DB / Engine
 def get_engine():
-    return create_engine(f"sqlite:///{DB_PATH}", connect_args={"check_same_thread": False})
+    """Get database engine based on environment"""
+    try:
+        # Try to use Neon PostgreSQL on Streamlit Cloud
+        if not config.IS_LOCAL_DEV:
+            import streamlit as st
+            try:
+                # Use Streamlit's connection for Neon PostgreSQL
+                return st.connection("neon", type="sql").engine
+            except Exception as e:
+                logger.warning(f"Neon PostgreSQL connection failed, falling back to SQLite: {e}")
+
+        # Fallback to SQLite for local development
+        logger.info("Using SQLite database for local development")
+        return create_engine(f"sqlite:///{DB_PATH}", connect_args={"check_same_thread": False})
+
+    except Exception as e:
+        logger.error(f"Database connection error: {e}")
+        # Final fallback to SQLite
+        return create_engine(f"sqlite:///{DB_PATH}", connect_args={"check_same_thread": False})
 
 @safe_db_operation
 def init_db():
     engine = get_engine()
+
+    # Detect database type for schema compatibility
+    is_postgresql = engine.dialect.name == 'postgresql'
+
     with engine.begin() as conn:
         conn.execute(text("""
         CREATE TABLE IF NOT EXISTS participants (
@@ -79,23 +101,45 @@ def init_db():
             additional_comments TEXT
         )"""))
 
-        conn.execute(text("""
-        CREATE TABLE IF NOT EXISTS votes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            participant_id TEXT,
-            image_id TEXT,
-            true_label TEXT,
-            human_choice TEXT,
-            confidence REAL,
-            response_time_ms INTEGER,
-            timestamp_utc TEXT,
-            detector_pred TEXT,
-            detector_confidence REAL,
-            reasoning TEXT,
-            generator_model TEXT,
-            art_style TEXT,
-            order_shown INTEGER
-        )"""))
+        # Create votes table with database-specific primary key
+        if is_postgresql:
+            votes_sql = """
+            CREATE TABLE IF NOT EXISTS votes (
+                id SERIAL PRIMARY KEY,
+                participant_id TEXT,
+                image_id TEXT,
+                true_label TEXT,
+                human_choice TEXT,
+                confidence REAL,
+                response_time_ms INTEGER,
+                timestamp_utc TEXT,
+                detector_pred TEXT,
+                detector_confidence REAL,
+                reasoning TEXT,
+                generator_model TEXT,
+                art_style TEXT,
+                order_shown INTEGER
+            )"""
+        else:
+            votes_sql = """
+            CREATE TABLE IF NOT EXISTS votes (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                participant_id TEXT,
+                image_id TEXT,
+                true_label TEXT,
+                human_choice TEXT,
+                confidence REAL,
+                response_time_ms INTEGER,
+                timestamp_utc TEXT,
+                detector_pred TEXT,
+                detector_confidence REAL,
+                reasoning TEXT,
+                generator_model TEXT,
+                art_style TEXT,
+                order_shown INTEGER
+            )"""
+
+        conn.execute(text(votes_sql))
 
         # Migration: Add new columns if they don't exist
         new_columns = [
@@ -149,20 +193,60 @@ def make_pid():
 
 @safe_db_operation
 def register_participant(engine, pid, info: dict):
+    is_postgresql = engine.dialect.name == 'postgresql'
+
     with engine.begin() as conn:
-        conn.execute(text("""
-            INSERT OR REPLACE INTO participants
-            (participant_id, started_at,
-             pre_confidence, pre_training, user_type, years_experience, art_mediums,
-             ai_familiarity, ai_frequency, difficulty, visual_cues, hardest_styles,
-             labeling_importance, encountered_unlabeled, concerns, detection_value,
-             visibility_impact, emotions, additional_comments)
-            VALUES (:participant_id, :started_at,
-                    :pre_confidence, :pre_training, :user_type, :years_experience, :art_mediums,
-                    :ai_familiarity, :ai_frequency, :difficulty, :visual_cues, :hardest_styles,
-                    :labeling_importance, :encountered_unlabeled, :concerns, :detection_value,
-                    :visibility_impact, :emotions, :additional_comments)
-        """), [{
+        if is_postgresql:
+            # PostgreSQL upsert syntax
+            insert_sql = """
+                INSERT INTO participants
+                (participant_id, started_at,
+                 pre_confidence, pre_training, user_type, years_experience, art_mediums,
+                 ai_familiarity, ai_frequency, difficulty, visual_cues, hardest_styles,
+                 labeling_importance, encountered_unlabeled, concerns, detection_value,
+                 visibility_impact, emotions, additional_comments)
+                VALUES (:participant_id, :started_at,
+                        :pre_confidence, :pre_training, :user_type, :years_experience, :art_mediums,
+                        :ai_familiarity, :ai_frequency, :difficulty, :visual_cues, :hardest_styles,
+                        :labeling_importance, :encountered_unlabeled, :concerns, :detection_value,
+                        :visibility_impact, :emotions, :additional_comments)
+                ON CONFLICT (participant_id) DO UPDATE SET
+                    started_at = EXCLUDED.started_at,
+                    pre_confidence = EXCLUDED.pre_confidence,
+                    pre_training = EXCLUDED.pre_training,
+                    user_type = EXCLUDED.user_type,
+                    years_experience = EXCLUDED.years_experience,
+                    art_mediums = EXCLUDED.art_mediums,
+                    ai_familiarity = EXCLUDED.ai_familiarity,
+                    ai_frequency = EXCLUDED.ai_frequency,
+                    difficulty = EXCLUDED.difficulty,
+                    visual_cues = EXCLUDED.visual_cues,
+                    hardest_styles = EXCLUDED.hardest_styles,
+                    labeling_importance = EXCLUDED.labeling_importance,
+                    encountered_unlabeled = EXCLUDED.encountered_unlabeled,
+                    concerns = EXCLUDED.concerns,
+                    detection_value = EXCLUDED.detection_value,
+                    visibility_impact = EXCLUDED.visibility_impact,
+                    emotions = EXCLUDED.emotions,
+                    additional_comments = EXCLUDED.additional_comments
+            """
+        else:
+            # SQLite syntax
+            insert_sql = """
+                INSERT OR REPLACE INTO participants
+                (participant_id, started_at,
+                 pre_confidence, pre_training, user_type, years_experience, art_mediums,
+                 ai_familiarity, ai_frequency, difficulty, visual_cues, hardest_styles,
+                 labeling_importance, encountered_unlabeled, concerns, detection_value,
+                 visibility_impact, emotions, additional_comments)
+                VALUES (:participant_id, :started_at,
+                        :pre_confidence, :pre_training, :user_type, :years_experience, :art_mediums,
+                        :ai_familiarity, :ai_frequency, :difficulty, :visual_cues, :hardest_styles,
+                        :labeling_importance, :encountered_unlabeled, :concerns, :detection_value,
+                        :visibility_impact, :emotions, :additional_comments)
+            """
+
+        conn.execute(text(insert_sql), [{
             "participant_id": pid,
             "started_at": now_utc_iso(),
 
