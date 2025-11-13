@@ -203,6 +203,18 @@ def make_pid():
 def register_participant(engine, pid, info: dict):
     is_postgresql = engine.dialect.name == 'postgresql'
 
+    # Ensure database is initialized (especially important for PostgreSQL)
+    try:
+        with engine.begin() as conn:
+            # Quick check if participants table exists
+            if is_postgresql:
+                conn.execute(text("SELECT 1 FROM participants LIMIT 1"))
+            else:
+                conn.execute(text("SELECT 1 FROM participants LIMIT 1"))
+    except Exception:
+        logger.warning("Participants table not found, initializing database...")
+        init_db()
+
     with engine.begin() as conn:
         if is_postgresql:
             # PostgreSQL upsert syntax
@@ -286,6 +298,15 @@ def mark_finished(engine, pid):
 
 @safe_db_operation
 def save_vote(engine, rec: dict):
+    # Ensure database is initialized (especially important for PostgreSQL)
+    try:
+        with engine.begin() as conn:
+            # Quick check if votes table exists
+            conn.execute(text("SELECT 1 FROM votes LIMIT 1"))
+    except Exception:
+        logger.warning("Votes table not found, initializing database...")
+        init_db()
+
     with engine.begin() as conn:
         conn.execute(text("""
             INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style, order_shown)
