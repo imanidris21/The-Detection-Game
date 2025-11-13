@@ -23,8 +23,14 @@ class Config:
     # Database configuration
     DB_PATH = DATA_DIR / "results.db"
 
-    # Environment detection
-    IS_STREAMLIT_CLOUD = os.getenv("STREAMLIT_CLOUD", "false").lower() == "true" or os.getenv("HOME") == "/mount/src"
+    # Environment detection - Updated for Streamlit Cloud
+    IS_STREAMLIT_CLOUD = (
+        os.getenv("STREAMLIT_CLOUD", "false").lower() == "true" or
+        os.getenv("HOME") == "/home/appuser" or  # New Streamlit Cloud HOME
+        os.getenv("HOME") == "/mount/src" or     # Legacy Streamlit Cloud HOME
+        os.path.exists("/mount/src") or          # Check if running in Streamlit Cloud filesystem
+        "appuser" in os.getenv("HOME", "")       # Additional check for Streamlit Cloud user
+    )
     IS_LOCAL_DEV = not IS_STREAMLIT_CLOUD
 
     # Experiment settings
