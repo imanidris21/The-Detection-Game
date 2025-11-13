@@ -40,15 +40,23 @@ def safe_db_operation(func):
 # DB / Engine
 def get_engine():
     """Get database engine based on environment"""
+    # Debug logging for environment detection
+    logger.info(f"Environment detection - IS_LOCAL_DEV: {config.IS_LOCAL_DEV}, IS_STREAMLIT_CLOUD: {config.IS_STREAMLIT_CLOUD}")
+    logger.info(f"HOME environment variable: {os.getenv('HOME')}")
+
     try:
         # Try to use Neon PostgreSQL on Streamlit Cloud
         if not config.IS_LOCAL_DEV:
+            logger.info("Detected Streamlit Cloud environment - attempting Neon PostgreSQL connection...")
             import streamlit as st
             try:
                 # Use Streamlit's connection for Neon PostgreSQL
-                return st.connection("neon", type="sql").engine
+                engine = st.connection("neon", type="sql").engine
+                logger.info(f"✅ Successfully connected to Neon PostgreSQL: {engine.dialect.name}")
+                return engine
             except Exception as e:
-                logger.warning(f"Neon PostgreSQL connection failed, falling back to SQLite: {e}")
+                logger.warning(f"❌ Neon PostgreSQL connection failed, falling back to SQLite: {e}")
+                logger.warning(f"Streamlit secrets available: {hasattr(st, 'secrets') and 'connections' in st.secrets}")
 
         # Fallback to SQLite for local development
         logger.info("Using SQLite database for local development")
