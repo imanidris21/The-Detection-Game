@@ -38,7 +38,7 @@ if not st.session_state.authenticated:
                 st.success("Access granted! Reloading dashboard...")
                 st.rerun()
             else:
-                st.error("Invalid password. Please contact the research team for access.")
+                st.error("Invalid password. Please contact iman for access.")
         except KeyError:
             st.error("Admin password not configured. Please contact the administrator.")
             st.info("**For developers**: Add `admin_password` to your Streamlit secrets.")
