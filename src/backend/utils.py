@@ -202,18 +202,17 @@ def make_pid():
 @safe_db_operation
 def register_participant(engine, pid, info: dict):
     is_postgresql = engine.dialect.name == 'postgresql'
+    logger.info(f"Registering participant {pid} with database type: {engine.dialect.name}")
 
-    # Ensure database is initialized (especially important for PostgreSQL)
-    try:
-        with engine.begin() as conn:
-            # Quick check if participants table exists
-            if is_postgresql:
-                conn.execute(text("SELECT 1 FROM participants LIMIT 1"))
-            else:
-                conn.execute(text("SELECT 1 FROM participants LIMIT 1"))
-    except Exception:
-        logger.warning("Participants table not found, initializing database...")
-        init_db()
+    # Force database initialization for PostgreSQL to ensure tables exist
+    if is_postgresql:
+        logger.info("PostgreSQL detected - ensuring database is initialized...")
+        try:
+            init_db()
+            logger.info("Database initialization completed successfully")
+        except Exception as e:
+            logger.error(f"Database initialization failed: {e}")
+            raise
 
     with engine.begin() as conn:
         if is_postgresql:
@@ -298,20 +297,30 @@ def mark_finished(engine, pid):
 
 @safe_db_operation
 def save_vote(engine, rec: dict):
-    # Ensure database is initialized (especially important for PostgreSQL)
-    try:
-        with engine.begin() as conn:
-            # Quick check if votes table exists
-            conn.execute(text("SELECT 1 FROM votes LIMIT 1"))
-    except Exception:
-        logger.warning("Votes table not found, initializing database...")
-        init_db()
+    is_postgresql = engine.dialect.name == 'postgresql'
+    logger.info(f"Saving vote for participant {rec.get('participant_id')} with database type: {engine.dialect.name}")
+
+    # Force database initialization for PostgreSQL to ensure tables exist
+    if is_postgresql:
+        logger.info("PostgreSQL detected - ensuring database is initialized...")
+        try:
+            init_db()
+            logger.info("Database initialization completed successfully")
+        except Exception as e:
+            logger.error(f"Database initialization failed: {e}")
+            raise
 
     with engine.begin() as conn:
-        conn.execute(text("""
-            INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style, order_shown)
-            VALUES (:participant_id, :image_id, :true_label, :human_choice, :confidence, :response_time_ms, :timestamp_utc, :detector_pred, :detector_confidence, :reasoning, :generator_model, :art_style, :order_shown)
-        """), [rec])
+        try:
+            conn.execute(text("""
+                INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style, order_shown)
+                VALUES (:participant_id, :image_id, :true_label, :human_choice, :confidence, :response_time_ms, :timestamp_utc, :detector_pred, :detector_confidence, :reasoning, :generator_model, :art_style, :order_shown)
+            """), [rec])
+            logger.info(f"Successfully saved vote for participant {rec.get('participant_id')}")
+        except Exception as e:
+            logger.error(f"Failed to save vote: {e}")
+            logger.error(f"Vote data: {rec}")
+            raise
 
 def get_trial_images(images_meta, difficulty_mode="mixed", num_trials=None):
     """Get random selection of images for trial"""
