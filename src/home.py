@@ -50,13 +50,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-center_col = st.columns([1, 1, 1])[1]
-
-with center_col:
-    start = st.button("Start the Game", type="primary")
-
-if start:
-    st.switch_page("pages/1_Take_the_Test.py")
+col1, col2, col3 = st.columns([4, 1, 4])
+with col2:
+    if st.button("Start the Game", type="primary"):
+        st.switch_page("pages/1_Take_the_Test.py")
 
 
 
