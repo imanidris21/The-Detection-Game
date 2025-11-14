@@ -50,10 +50,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-center_col = st.columns([1, 1, 1])[1]
+st.markdown("""
+<div style='text-align: center; margin-top: 2rem;'>
+""", unsafe_allow_html=True)
 
-with center_col:
-    start = st.button("Start the Game", type="primary")
+start = st.button("Start the Game", type="primary")
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 if start:
     st.switch_page("pages/1_Take_the_Test.py")
