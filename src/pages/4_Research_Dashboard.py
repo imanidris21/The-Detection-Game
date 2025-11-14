@@ -45,16 +45,12 @@ if not st.session_state.authenticated:
 
     st.stop()
 
-# Add logout and admin buttons for authenticated users
-col1, col2, col3 = st.columns([1, 1, 8])
+# Add logout button for authenticated users
+col1, col2 = st.columns([1, 9])
 with col1:
     if st.button("Logout"):
         st.session_state.authenticated = False
         st.rerun()
-
-with col2:
-    if st.button("🗑️ Clear Data", type="secondary"):
-        st.session_state.show_clear_confirm = True
 
 st.markdown("---")
 
@@ -65,51 +61,6 @@ detector_preds = load_detector_preds()
 
 st.markdown("*Analytics for AI art detection research*")
 
-# delete beta-testing data before launching the game publicly
-# Handle data clearing confirmation
-if st.session_state.get('show_clear_confirm', False):
-    st.warning("**DANGER: Clear All Test Data**")
-    st.markdown("This will **permanently delete** all participants and votes data from your database.")
-
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("Cancel", type="secondary"):
-            st.session_state.show_clear_confirm = False
-            st.rerun()
-
-    with col2:
-        confirm_text = st.text_input("Type 'DELETE ALL DATA' to confirm:")
-
-    with col3:
-        button_disabled = confirm_text != "DELETE ALL DATA"
-        if button_disabled:
-            st.caption(f"Type exactly: DELETE ALL DATA (you typed: '{confirm_text}')")
-
-        if st.button("Confirm Delete", type="primary", disabled=button_disabled):
-            try:
-                st.info("🔄 Starting deletion process...")
-                from sqlalchemy import text
-
-                # Use fresh database connection for deletion
-                delete_engine = get_engine()
-                with delete_engine.begin() as conn:
-                    st.info("🔍 Connected to database, deleting votes...")
-                    # Delete in correct order (votes first due to foreign keys)
-                    votes_result = conn.execute(text("DELETE FROM votes"))
-                    st.info(f"🗑️ Deleted {votes_result.rowcount} votes")
-
-                    st.info("🔍 Deleting participants...")
-                    participants_result = conn.execute(text("DELETE FROM participants"))
-                    st.info(f"🗑️ Deleted {participants_result.rowcount} participants")
-
-                    st.success(f"✅ Successfully deleted {votes_result.rowcount} votes and {participants_result.rowcount} participants!")
-                    st.session_state.show_clear_confirm = False
-                    st.balloons()
-                    st.rerun()
-            except Exception as e:
-                st.error(f"❌ Error clearing data: {str(e)}")
-                import traceback
-                st.code(traceback.format_exc())
 
 # Add refresh button and database info
 col_refresh, col_info = st.columns([1, 3])
