@@ -108,10 +108,11 @@ with col_info:
     db_info = f"Connected to: {engine.dialect.name} • Engine: {str(engine.url).split('@')[1] if '@' in str(engine.url) else 'Local SQLite'}"
     st.caption(db_info)
 
-# Function to load and process fresh data
-@st.cache_data(ttl=0)  # No caching - always fetch fresh
+# Load completely fresh data every time - NO CACHING WHATSOEVER
 def load_and_process_data():
-    with engine.begin() as conn:
+    # Force fresh database connection each time
+    fresh_engine = get_engine()
+    with fresh_engine.begin() as conn:
         votes = pd.read_sql("SELECT * FROM votes", conn)
         participants = pd.read_sql("SELECT * FROM participants", conn)
 
@@ -136,12 +137,16 @@ def load_and_process_data():
 
     return votes, participants, participant_accuracies, metrics
 
-# Load fresh data every time
+# Force completely fresh data load every single time
+import time
+current_time = time.time()
 votes, participants, participant_accuracies, metrics = load_and_process_data()
 
-# Debug info - show exact counts and sample IDs
+# Debug info - show exact counts and sample IDs with timestamp
 if not participants.empty:
-    st.info(f"🔍 **Debug Info**: Found {len(participants)} participants, {len(votes)} votes. "
+    from datetime import datetime
+    timestamp = datetime.now().strftime("%H:%M:%S")
+    st.info(f"🔍 **Debug Info** ({timestamp}): Found {len(participants)} participants, {len(votes)} votes. "
             f"Participant IDs: {', '.join(participants['participant_id'].head(3).tolist())}"
             f"{'...' if len(participants) > 3 else ''}")
 
