@@ -36,34 +36,31 @@ st.markdown("""
     margin-top: 2rem !important;
 }
 .stButton > button {
-    background-color: #0066cc !important;
-    color: white !important;
-    border: none !important;
+    background-color: white !important;
+    color: #262730 !important;
+    border: 1px solid #d3d3d3 !important;
     padding: 0.5rem 1.5rem !important;
     border-radius: 8px !important;
     font-weight: 600 !important;
     font-size: 1rem !important;
 }
 .stButton > button:hover {
-    background-color: #0052a3 !important;
+    background-color: #ff4b4b !important;
+    color: white !important;
+    border: 1px solid #ff4b4b !important;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .stButton {
-        justify-content: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}            
-
+/* Center align text in columns */
+.stColumn {
+    text-align: center !important;
+}   
 
 </style>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([2, 1, 2])
+col1, col2, col3 = st.columns([3, 1, 3])
 with col2:
-    if st.button("Start the Game", type="primary"):
+    if st.button("Start the Game", type="primary",use_container_width=True):
         st.switch_page("pages/1_Take_the_Test.py")
 
 
