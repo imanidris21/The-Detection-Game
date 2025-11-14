@@ -628,33 +628,25 @@ elif st.session_state.test_stage == "survey":
                 index=None
             )
 
-            # Question 3: Art mediums (conditional)
-            if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"]:
-                art_mediums = st.multiselect(
-                    "3. What art mediums do you work with?",
-                    ["Digital art", "Traditional painting", "Sketching", "Photography",
-                     "Mixed media", "Other"]
-                )
+            # Question 3: Art mediums (optional for artists/designers)
+            art_mediums = st.multiselect(
+                "3. [If artist/designer] What art mediums do you work with?",
+                ["Digital art", "Traditional painting", "Sketching", "Photography",
+                 "Mixed media", "None/Not applicable", "Other"]
+            )
 
-                # Add text input for "Other" art mediums
-                other_art_medium = ""
-                if "Other" in art_mediums:
-                    other_art_medium = st.text_input("Please specify other art mediums:", key="other_art_medium")
-            else:
-                art_mediums = ["Not applicable"]
-                other_art_medium = ""
+            # Add text input for "Other" art mediums
+            other_art_medium = ""
+            if "Other" in art_mediums:
+                other_art_medium = st.text_input("Please specify other art mediums:", key="other_art_medium")
 
         with col2:
-            # Question 2: Years of experience (conditional)
-            if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"]:
-                years_experience = st.selectbox(
-                    "2. How many years of creative experience do you have?",
-                    ["Less than 1 year", "1-3 years", "4-7 years", "8-15 years", "15+ years"],
-                    index=None
-                )
-            else:
-                years_experience = "Not applicable"
-                st.markdown("**2. Years of creative experience:** Not applicable")
+            # Question 2: Years of experience (optional for artists/designers)
+            years_experience = st.selectbox(
+                "2. [If artist/designer] How many years of creative experience do you have?",
+                ["Less than 1 year", "1-3 years", "4-7 years", "8-15 years", "15+ years"],
+                index=None
+            )
 
             # Question 4: AI familiarity
             ai_familiarity = st.selectbox(
@@ -747,10 +739,10 @@ elif st.session_state.test_stage == "survey":
 
         col7, col8 = st.columns(2)
         with col7:
-            # Question 16: Impact on visibility (conditional)
-            if user_type == "Professional artist":
+            # Question 16: Impact on visibility (optional for artists/designers)
+            if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"]:
                 visibility_impact = st.selectbox(
-                    "16. How has AI affected your work's visibility on social media?",
+                    "16. [If artist/designer] How has AI affected your work's visibility on social media?",
                     ["Significantly decreased", "Somewhat decreased", "No change",
                      "Somewhat increased", "Significantly increased", "Unsure"],
                     index=None
@@ -791,8 +783,7 @@ elif st.session_state.test_stage == "survey":
             if user_type is None:
                 validation_errors.append("Please select how you would describe yourself.")
 
-            if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"] and years_experience is None:
-                validation_errors.append("Please select your years of creative experience.")
+            # Note: years_experience is optional for artist/designer types
 
             if ai_familiarity is None:
                 validation_errors.append("Please select your familiarity with AI art tools.")
@@ -812,8 +803,7 @@ elif st.session_state.test_stage == "survey":
             if detection_value is None:
                 validation_errors.append("Please select how valuable reliable AI detection would be.")
 
-            if user_type == "Professional artist" and visibility_impact is None:
-                validation_errors.append("Please select how AI has affected your work's visibility.")
+            # Note: visibility_impact is optional for artist/designer types
 
             # Show validation errors if any exist
             if validation_errors:
