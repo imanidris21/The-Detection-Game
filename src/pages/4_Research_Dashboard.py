@@ -81,20 +81,35 @@ if st.session_state.get('show_clear_confirm', False):
         confirm_text = st.text_input("Type 'DELETE ALL DATA' to confirm:")
 
     with col3:
-        if st.button("Confirm Delete", type="primary", disabled=confirm_text != "DELETE ALL DATA"):
+        button_disabled = confirm_text != "DELETE ALL DATA"
+        if button_disabled:
+            st.caption(f"Type exactly: DELETE ALL DATA (you typed: '{confirm_text}')")
+
+        if st.button("Confirm Delete", type="primary", disabled=button_disabled):
             try:
+                st.info("🔄 Starting deletion process...")
                 from sqlalchemy import text
-                with engine.begin() as conn:
+
+                # Use fresh database connection for deletion
+                delete_engine = get_engine()
+                with delete_engine.begin() as conn:
+                    st.info("🔍 Connected to database, deleting votes...")
                     # Delete in correct order (votes first due to foreign keys)
                     votes_result = conn.execute(text("DELETE FROM votes"))
-                    participants_result = conn.execute(text("DELETE FROM participants"))
+                    st.info(f"🗑️ Deleted {votes_result.rowcount} votes")
 
-                    st.success(f"Successfully deleted {votes_result.rowcount} votes and {participants_result.rowcount} participants!")
+                    st.info("🔍 Deleting participants...")
+                    participants_result = conn.execute(text("DELETE FROM participants"))
+                    st.info(f"🗑️ Deleted {participants_result.rowcount} participants")
+
+                    st.success(f"✅ Successfully deleted {votes_result.rowcount} votes and {participants_result.rowcount} participants!")
                     st.session_state.show_clear_confirm = False
                     st.balloons()
                     st.rerun()
             except Exception as e:
-                st.error(f"Error clearing data: {e}")
+                st.error(f"❌ Error clearing data: {str(e)}")
+                import traceback
+                st.code(traceback.format_exc())
 
 # Add refresh button and database info
 col_refresh, col_info = st.columns([1, 3])
