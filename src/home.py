@@ -27,40 +27,33 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Simple styling
-# st.markdown("""
-# <style>
-# /* Button styling */
-# .stButton {
-#     display: flex !important;
-#     justify-content: center !important;
-#     margin-top: 2rem !important;
-# }
-# .stButton > button {
-#     background-color: #0066cc !important;
-#     color: white !important;
-#     border: none !important;
-#     padding: 0.5rem 1.5rem !important;
-#     border-radius: 8px !important;
-#     font-weight: 600 !important;
-#     font-size: 1rem !important;
-# }
-# .stButton > button:hover {
-#     background-color: #0052a3 !important;
-# }
-# </style>
-# """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* Button styling */
+.stButton {
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 2rem !important;
+}
+.stButton > button {
+    background-color: #0066cc !important;
+    color: white !important;
+    border: none !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+}
+.stButton > button:hover {
+    background-color: #0052a3 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# col1, col2, col3 = st.columns([2, 1, 2])
-# with col2:
-#     if st.button("Start the Game", type="primary"):
-#         st.switch_page("pages/1_Take_the_Test.py")
+col1, col2, col3 = st.columns([2, 1, 2])
+with col2:
+    if st.button("Start the Game", type="primary"):
+        st.switch_page("pages/1_Take_the_Test.py")
 
 
 
-center_col = st.columns([1, 1, 1])[1]
-
-with center_col:
-    start = st.button("Start the Game", type="primary")
-
-if start:
-    st.switch_page("pages/1_Take_the_Test.py")
