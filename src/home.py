@@ -50,7 +50,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns([4, 1, 4])
+col1, col2, col3 = st.columns([3, 1, 3])
 with col2:
     if st.button("Start the Game", type="primary"):
         st.switch_page("pages/1_Take_the_Test.py")
