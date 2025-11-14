@@ -108,10 +108,36 @@ with col_info:
     db_info = f"Connected to: {engine.dialect.name} • Engine: {str(engine.url).split('@')[1] if '@' in str(engine.url) else 'Local SQLite'}"
     st.caption(db_info)
 
-# Load all data with debug logging
-with engine.begin() as conn:
-    votes = pd.read_sql("SELECT * FROM votes", conn)
-    participants = pd.read_sql("SELECT * FROM participants", conn)
+# Function to load and process fresh data
+@st.cache_data(ttl=0)  # No caching - always fetch fresh
+def load_and_process_data():
+    with engine.begin() as conn:
+        votes = pd.read_sql("SELECT * FROM votes", conn)
+        participants = pd.read_sql("SELECT * FROM participants", conn)
+
+    if votes.empty:
+        return votes, participants, pd.DataFrame(), {}
+
+    # Data preprocessing
+    votes['correct'] = votes['human_choice'] == votes['true_label']
+    votes['timestamp'] = pd.to_datetime(votes['timestamp_utc'])
+    participant_accuracies = votes.groupby('participant_id')['correct'].agg(['mean', 'count']).reset_index()
+    participant_accuracies.columns = ['participant_id', 'accuracy', 'n_responses']
+
+    # Calculate key metrics
+    metrics = {
+        'n_participants': len(participant_accuracies),
+        'n_responses': len(votes[votes['human_choice'] != 'seen']),
+        'median_accuracy': participant_accuracies['accuracy'].median() if len(participant_accuracies) > 0 else 0,
+        'overall_accuracy': participant_accuracies['accuracy'].mean() if len(participant_accuracies) > 0 else 0,
+        'ai_accuracy': (votes['detector_pred'] == votes['true_label']).mean() if 'detector_pred' in votes.columns else 0,
+        'response_times': votes['response_time_ms'] / 1000 if 'response_time_ms' in votes.columns else pd.Series([])
+    }
+
+    return votes, participants, participant_accuracies, metrics
+
+# Load fresh data every time
+votes, participants, participant_accuracies, metrics = load_and_process_data()
 
 # Debug info - show exact counts and sample IDs
 if not participants.empty:
@@ -123,12 +149,6 @@ if votes.empty:
     st.warning("No research data available yet.")
     st.stop()
 
-# Data preprocessing
-votes['correct'] = votes['human_choice'] == votes['true_label']
-votes['timestamp'] = pd.to_datetime(votes['timestamp_utc'])
-participant_accuracies = votes.groupby('participant_id')['correct'].agg(['mean', 'count']).reset_index()
-participant_accuracies.columns = ['participant_id', 'accuracy', 'n_responses']
-
 # EXECUTIVE SUMMARY
 st.markdown("---")
 st.subheader("Executive Summary")
@@ -136,22 +156,17 @@ st.subheader("Executive Summary")
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    n_participants = len(participant_accuracies)
-    st.metric("Total Participants", n_participants)
+    st.metric("Total Participants", metrics['n_participants'])
 
 with col2:
-    n_responses = len(votes[votes['human_choice'] != 'seen'])
-    st.metric("Valid Responses", n_responses)
+    st.metric("Valid Responses", metrics['n_responses'])
 
 with col3:
-    median_accuracy = np.median(participant_accuracies['accuracy'])
-    overall_accuracy = participant_accuracies['accuracy'].mean()
-    st.metric("Human Accuracy", f"{overall_accuracy:.1%}", delta=f"Median: {median_accuracy:.1%}")
+    st.metric("Human Accuracy", f"{metrics['overall_accuracy']:.1%}", delta=f"Median: {metrics['median_accuracy']:.1%}")
 
 with col4:
-    ai_accuracy = (votes['detector_pred'] == votes['true_label']).mean()
-    performance_gap = ai_accuracy - overall_accuracy
-    st.metric("AI Detector Accuracy", f"{ai_accuracy:.1%}", delta=f"{performance_gap:+.1%} vs humans")
+    performance_gap = metrics['ai_accuracy'] - metrics['overall_accuracy']
+    st.metric("AI Detector Accuracy", f"{metrics['ai_accuracy']:.1%}", delta=f"{performance_gap:+.1%} vs humans")
 
 # STATISTICAL ANALYSIS
 st.markdown("---")
@@ -214,8 +229,8 @@ with tab1:
             labels={'accuracy': 'Accuracy', 'count': 'Number of Participants'}
         )
         fig_hist.update_xaxes(tickformat='.0%')
-        fig_hist.add_vline(x=median_accuracy, line_dash="dash", line_color="red",
-                          annotation_text=f"Median: {median_accuracy:.1%}")
+        fig_hist.add_vline(x=metrics['median_accuracy'], line_dash="dash", line_color="red",
+                          annotation_text=f"Median: {metrics['median_accuracy']:.1%}")
         st.plotly_chart(fig_hist, use_container_width=True)
 
     with col2:
@@ -443,12 +458,12 @@ with tab5:
         export_stats = f"""
 
 Research Dataset Summary:
-- Participants: N = {n_participants}
-- Valid responses: N = {n_responses}
-- Human median accuracy: {median_accuracy:.1%} (IQR: {participant_accuracies['accuracy'].quantile(0.25):.1%}-{participant_accuracies['accuracy'].quantile(0.75):.1%})
-- AI detector accuracy: {ai_accuracy:.1%}
-- Performance gap: {median_accuracy - ai_accuracy:+.1%}
-- Response time median: {response_times.median():.1f}s
+- Participants: N = {metrics['n_participants']}
+- Valid responses: N = {metrics['n_responses']}
+- Human median accuracy: {metrics['median_accuracy']:.1%} (IQR: {participant_accuracies['accuracy'].quantile(0.25):.1%}-{participant_accuracies['accuracy'].quantile(0.75):.1%})
+- AI detector accuracy: {metrics['ai_accuracy']:.1%}
+- Performance gap: {metrics['median_accuracy'] - metrics['ai_accuracy']:+.1%}
+- Response time median: {metrics['response_times'].median():.1f}s
 - Reasoning responses: {len(reasoning_votes)}/{len(votes)} ({len(reasoning_votes)/len(votes):.1%})
 
 Data collection period: {votes['timestamp'].min().date()} to {votes['timestamp'].max().date()}
@@ -481,7 +496,7 @@ Data collection period: {votes['timestamp'].min().date()} to {votes['timestamp']
             ],
             "Status": [
                 "Info",
-                "Good" if n_responses > 50 else "Warning",
+                "Good" if metrics['n_responses'] > 50 else "Warning",
                 "Info",
                 "Good" if invalid_responses == 0 else "Warning",
                 "Good" if len(participant_accuracies[participant_accuracies['n_responses'] > 5]) > 3 else "Warning",
