@@ -107,7 +107,7 @@ st.subheader("Statistical Analysis")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.markdown("**Human Performance Distribution**")
+    st.markdown("**Human Performance Distribution (all users)**")
 
     # Descriptive statistics
     stats_data = {
@@ -124,7 +124,7 @@ with col1:
     st.dataframe(pd.DataFrame(stats_data), hide_index=True)
 
 with col2:
-    st.markdown("**Sample Characteristics**")
+    st.markdown("**Sample Characteristics (all users)**")
 
     # Sample size analysis
     total_images = votes['image_id'].nunique()
@@ -427,12 +427,12 @@ Data collection period: {votes['timestamp'].min().date()} to {votes['timestamp']
                 votes['image_id'].value_counts().sum()
             ],
             "Status": [
-                "ℹ️",
-                "✅" if n_responses > 50 else "⚠️",
-                "ℹ️",
-                "✅" if invalid_responses == 0 else "⚠️",
-                "✅" if len(participant_accuracies[participant_accuracies['n_responses'] > 5]) > 3 else "⚠️",
-                "✅"
+                "Info",
+                "Good" if n_responses > 50 else "Warning",
+                "Info",
+                "Good" if invalid_responses == 0 else "Warning",
+                "Good" if len(participant_accuracies[participant_accuracies['n_responses'] > 5]) > 3 else "Warning",
+                "Good"
             ]
         }
         st.dataframe(pd.DataFrame(quality_data), hide_index=True)
@@ -446,9 +446,9 @@ with tab6:
         # Use the true_label from votes (not from metadata)
         merged["correct"] = merged["human_choice"] == merged["true_label"]
 
-        if 'style' in merged.columns:
+        if 'art_style' in merged.columns:
             # Calculate per-style accuracy
-            style_acc = merged.groupby("style").agg(
+            style_acc = merged.groupby("art_style").agg(
                 total=("correct", "size"),
                 acc=("correct", "mean")
             ).reset_index().sort_values("acc", ascending=False)
@@ -472,10 +472,10 @@ with tab6:
                 if len(style_acc) > 0:
                     fig_style = px.bar(
                         style_acc,
-                        x='style',
+                        x='art_style',
                         y='acc',
                         title="Accuracy by Art Style",
-                        labels={'acc': 'Accuracy', 'style': 'Art Style'}
+                        labels={'acc': 'Accuracy', 'art_style': 'Art Style'}
                     )
                     fig_style.update_yaxes(tickformat='.0%')
                     fig_style.update_xaxes(tickangle=45)
@@ -491,12 +491,15 @@ with tab7:
     col1, col2 = st.columns([2, 1])
 
     with col1:
-        if not detector_preds.empty:
+        if 'detector_pred' in votes.columns and votes['detector_pred'].notna().any():
             st.markdown("**Sample Detector Predictions:**")
-            st.dataframe(detector_preds.reset_index().head(200), hide_index=True)
+            # Create a summary table from votes data
+            detector_summary = votes[['image_id', 'true_label', 'detector_pred', 'detector_confidence']].copy()
+            detector_summary['detector_correct'] = detector_summary['detector_pred'] == detector_summary['true_label']
+            st.dataframe(detector_summary.head(200), hide_index=True)
 
             # Download button for detector predictions
-            csv = detector_preds.to_csv()
+            csv = detector_summary.to_csv(index=False)
             st.download_button(
                 "Download detector predictions CSV",
                 csv,
@@ -507,23 +510,29 @@ with tab7:
             st.info("No detector predictions available.")
 
     with col2:
-        if not detector_preds.empty:
+        if 'detector_pred' in votes.columns and votes['detector_pred'].notna().any():
             st.markdown("**Detector Statistics:**")
-            st.metric("Total Predictions", len(detector_preds))
+            detector_data = votes[votes['detector_pred'].notna()]
+            st.metric("Total Predictions", len(detector_data))
 
-            if 'confidence' in detector_preds.columns:
-                avg_confidence = detector_preds['confidence'].mean()
+            if 'detector_confidence' in detector_data.columns and detector_data['detector_confidence'].notna().any():
+                avg_confidence = detector_data['detector_confidence'].mean()
                 st.metric("Average Confidence", f"{avg_confidence:.1%}")
 
-            if 'pred' in detector_preds.columns:
-                ai_pred_count = (detector_preds['pred'] == 'ai').sum()
-                human_pred_count = (detector_preds['pred'] == 'human').sum()
-                st.metric("AI Predictions", ai_pred_count)
-                st.metric("Human Predictions", human_pred_count)
+            ai_pred_count = (detector_data['detector_pred'] == 'ai').sum()
+            human_pred_count = (detector_data['detector_pred'] == 'human').sum()
+            st.metric("AI Predictions", ai_pred_count)
+            st.metric("Human Predictions", human_pred_count)
+        else:
+            st.info("No detector statistics available.")
 
-# PARTICIPANT DETAILS (for researcher)
+
+
+
+# PARTICIPANT DETAILS EXPORT
+
 st.markdown("---")
-st.subheader("👥 Participant Details")
+st.subheader("Participant Details")
 
 if st.checkbox("Show individual participant data"):
     # Detailed participant data
@@ -550,6 +559,24 @@ if st.checkbox("Show individual participant data"):
             label="Download CSV",
             data=csv,
             file_name=f"participant_data_{datetime.now().strftime('%Y%m%d')}.csv",
+            mime="text/csv"
+        )
+
+# VOTES TABLE EXPORT
+
+st.markdown("---")
+st.subheader("Votes Data Export")
+
+if st.checkbox("Show votes table and export options"):
+    st.markdown("**All Votes Data:**")
+    st.dataframe(votes, hide_index=True)
+
+    if st.button("Export all votes data as CSV"):
+        csv = votes.to_csv(index=False)
+        st.download_button(
+            label="Download Votes CSV",
+            data=csv,
+            file_name=f"votes_data_{datetime.now().strftime('%Y%m%d')}.csv",
             mime="text/csv"
         )
 
