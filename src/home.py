@@ -34,7 +34,6 @@ st.markdown("""
     display: flex !important;
     justify-content: center !important;
     margin-top: 2rem !important;
-    width: 100% !important;
 }
 .stButton > button {
     background-color: #0066cc !important;
@@ -56,12 +55,17 @@ st.markdown("""
         margin-left: auto !important;
         margin-right: auto !important;
     }
-}
+}            
+
+
 </style>
 """, unsafe_allow_html=True)
 
-if st.button("Start the Game", type="primary"):
-    st.switch_page("pages/1_Take_the_Test.py")
+col1, col2, col3 = st.columns([2, 1, 2])
+with col2:
+    if st.button("Start the Game", type="primary"):
+        st.switch_page("pages/1_Take_the_Test.py")
+
 
 
 
