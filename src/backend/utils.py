@@ -76,95 +76,113 @@ def init_db(engine=None):
     is_postgresql = engine.dialect.name == 'postgresql'
     logger.info(f"Initializing database with type: {engine.dialect.name}")
 
-    with engine.begin() as conn:
-        conn.execute(text("""
-        CREATE TABLE IF NOT EXISTS participants (
-            participant_id TEXT PRIMARY KEY,
-            started_at TEXT,
-            finished_at TEXT,
+    # Create tables with explicit commit and verification
+    try:
+        # Create participants table
+        with engine.begin() as conn:
+            logger.info("Creating participants table...")
+            conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS participants (
+                participant_id TEXT PRIMARY KEY,
+                started_at TEXT,
+                finished_at TEXT,
 
-            -- Pre-survey data
-            pre_confidence TEXT,
-            pre_training TEXT,
+                -- Pre-survey data
+                pre_confidence TEXT,
+                pre_training TEXT,
 
-            -- Background information
-            user_type TEXT,
-            years_experience TEXT,
-            art_mediums TEXT,
-            ai_familiarity TEXT,
-            ai_frequency TEXT,
+                -- Background information
+                user_type TEXT,
+                years_experience TEXT,
+                art_mediums TEXT,
+                ai_familiarity TEXT,
+                ai_frequency TEXT,
 
-            -- Detection experience
-            difficulty TEXT,
-            visual_cues TEXT,
-            hardest_styles TEXT,
+                -- Detection experience
+                difficulty TEXT,
+                visual_cues TEXT,
+                hardest_styles TEXT,
 
-            -- Platform experience & concerns
-            labeling_importance TEXT,
-            encountered_unlabeled TEXT,
-            concerns TEXT,
-            detection_value TEXT,
-            visibility_impact TEXT,
+                -- Platform experience & concerns
+                labeling_importance TEXT,
+                encountered_unlabeled TEXT,
+                concerns TEXT,
+                detection_value TEXT,
+                visibility_impact TEXT,
 
-            -- Reflection
-            emotions TEXT,
-            additional_comments TEXT
-        )"""))
+                -- Reflection
+                emotions TEXT,
+                additional_comments TEXT
+            )"""))
+            logger.info("✅ Participants table created successfully")
 
-        # Create votes table with database-specific primary key
-        if is_postgresql:
-            votes_sql = """
-            CREATE TABLE IF NOT EXISTS votes (
-                id SERIAL PRIMARY KEY,
-                participant_id TEXT,
-                image_id TEXT,
-                true_label TEXT,
-                human_choice TEXT,
-                confidence REAL,
-                response_time_ms INTEGER,
-                timestamp_utc TEXT,
-                detector_pred TEXT,
-                detector_confidence REAL,
-                reasoning TEXT,
-                generator_model TEXT,
-                art_style TEXT,
-                order_shown INTEGER
-            )"""
-        else:
-            votes_sql = """
-            CREATE TABLE IF NOT EXISTS votes (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                participant_id TEXT,
-                image_id TEXT,
-                true_label TEXT,
-                human_choice TEXT,
-                confidence REAL,
-                response_time_ms INTEGER,
-                timestamp_utc TEXT,
-                detector_pred TEXT,
-                detector_confidence REAL,
-                reasoning TEXT,
-                generator_model TEXT,
-                art_style TEXT,
-                order_shown INTEGER
-            )"""
+        # Create votes table in separate transaction
+        with engine.begin() as conn:
+            logger.info("Creating votes table...")
+            # Create votes table with database-specific primary key
+            if is_postgresql:
+                votes_sql = """
+                CREATE TABLE IF NOT EXISTS votes (
+                    id SERIAL PRIMARY KEY,
+                    participant_id TEXT,
+                    image_id TEXT,
+                    true_label TEXT,
+                    human_choice TEXT,
+                    confidence REAL,
+                    response_time_ms INTEGER,
+                    timestamp_utc TEXT,
+                    detector_pred TEXT,
+                    detector_confidence REAL,
+                    reasoning TEXT,
+                    generator_model TEXT,
+                    art_style TEXT,
+                    order_shown INTEGER
+                )"""
+            else:
+                votes_sql = """
+                CREATE TABLE IF NOT EXISTS votes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    participant_id TEXT,
+                    image_id TEXT,
+                    true_label TEXT,
+                    human_choice TEXT,
+                    confidence REAL,
+                    response_time_ms INTEGER,
+                    timestamp_utc TEXT,
+                    detector_pred TEXT,
+                    detector_confidence REAL,
+                    reasoning TEXT,
+                    generator_model TEXT,
+                    art_style TEXT,
+                    order_shown INTEGER
+                )"""
 
-        conn.execute(text(votes_sql))
+            conn.execute(text(votes_sql))
+            logger.info("✅ Votes table created successfully")
 
-        # Migration: Add new columns if they don't exist
-        new_columns = [
-            "reasoning TEXT",
-            "generator_model TEXT",
-            "art_style TEXT",
-            "order_shown INTEGER"
-        ]
-
-        for column in new_columns:
+        # Verify tables exist
+        with engine.begin() as conn:
+            logger.info("Verifying table creation...")
             try:
-                conn.execute(text(f"ALTER TABLE votes ADD COLUMN {column}"))
-            except Exception:
-                # Column already exists, ignore the error
-                pass
+                result = conn.execute(text("SELECT 1 FROM participants LIMIT 1"))
+                logger.info("✅ Participants table verified")
+            except Exception as e:
+                logger.error(f"❌ Participants table verification failed: {e}")
+                raise
+
+            try:
+                result = conn.execute(text("SELECT 1 FROM votes LIMIT 1"))
+                logger.info("✅ Votes table verified")
+            except Exception as e:
+                logger.error(f"❌ Votes table verification failed: {e}")
+                raise
+
+        logger.info("🎉 Database initialization completed and verified")
+
+    except Exception as e:
+        logger.error(f"❌ Database initialization failed: {e}")
+        raise
+
     return engine
 
 # Data loaders
@@ -210,11 +228,26 @@ def register_participant(engine, pid, info: dict):
     if is_postgresql:
         logger.info("PostgreSQL detected - ensuring database is initialized...")
         try:
+            logger.info("Calling init_db() function...")
             init_db(engine)  # Pass the same engine instance
-            logger.info("Database initialization completed successfully")
+            logger.info("✅ Database initialization completed successfully")
         except Exception as e:
-            logger.error(f"Database initialization failed: {e}")
-            raise
+            logger.error(f"❌ Database initialization failed with error: {e}")
+            logger.error(f"❌ Error type: {type(e).__name__}")
+            import traceback
+            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
+
+            # For debugging, let's try to create tables with a simpler approach
+            logger.warning("Attempting simplified table creation as fallback...")
+            try:
+                with engine.begin() as conn:
+                    logger.info("Creating participants table with simplified approach...")
+                    conn.execute(text("CREATE TABLE IF NOT EXISTS participants (participant_id TEXT PRIMARY KEY, started_at TEXT, finished_at TEXT, pre_confidence TEXT, pre_training TEXT, user_type TEXT, years_experience TEXT, art_mediums TEXT, ai_familiarity TEXT, ai_frequency TEXT, difficulty TEXT, visual_cues TEXT, hardest_styles TEXT, labeling_importance TEXT, encountered_unlabeled TEXT, concerns TEXT, detection_value TEXT, visibility_impact TEXT, emotions TEXT, additional_comments TEXT)"))
+                    conn.commit()
+                    logger.info("✅ Simplified participants table created")
+            except Exception as e2:
+                logger.error(f"❌ Even simplified table creation failed: {e2}")
+                raise e
 
     with engine.begin() as conn:
         if is_postgresql:
