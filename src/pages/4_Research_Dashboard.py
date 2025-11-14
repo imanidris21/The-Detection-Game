@@ -30,7 +30,7 @@ if not st.session_state.authenticated:
 
     if st.button("Login", type="primary"):
         try:
-            # Get admin password from Streamlit secrets
+            # Get password from Streamlit secrets
             admin_password = st.secrets["admin_password"]
 
             if password == admin_password:
@@ -45,12 +45,16 @@ if not st.session_state.authenticated:
 
     st.stop()
 
-# Add logout button for authenticated users
+# Add logout and admin buttons for authenticated users
 col1, col2, col3 = st.columns([1, 1, 8])
 with col1:
     if st.button("Logout"):
         st.session_state.authenticated = False
         st.rerun()
+
+with col2:
+    if st.button("🗑️ Clear Data", type="secondary"):
+        st.session_state.show_clear_confirm = True
 
 st.markdown("---")
 
@@ -61,10 +65,59 @@ detector_preds = load_detector_preds()
 
 st.markdown("*Analytics for AI art detection research*")
 
-# Load all data
+# delete beta-testing data before launching the game publicly
+# Handle data clearing confirmation
+if st.session_state.get('show_clear_confirm', False):
+    st.warning("**DANGER: Clear All Test Data**")
+    st.markdown("This will **permanently delete** all participants and votes data from your database.")
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        if st.button("Cancel", type="secondary"):
+            st.session_state.show_clear_confirm = False
+            st.rerun()
+
+    with col2:
+        confirm_text = st.text_input("Type 'DELETE ALL DATA' to confirm:")
+
+    with col3:
+        if st.button("Confirm Delete", type="primary", disabled=confirm_text != "DELETE ALL DATA"):
+            try:
+                from sqlalchemy import text
+                with engine.begin() as conn:
+                    # Delete in correct order (votes first due to foreign keys)
+                    votes_result = conn.execute(text("DELETE FROM votes"))
+                    participants_result = conn.execute(text("DELETE FROM participants"))
+
+                    st.success(f"Successfully deleted {votes_result.rowcount} votes and {participants_result.rowcount} participants!")
+                    st.session_state.show_clear_confirm = False
+                    st.balloons()
+                    st.rerun()
+            except Exception as e:
+                st.error(f"Error clearing data: {e}")
+
+# Add refresh button and database info
+col_refresh, col_info = st.columns([1, 3])
+with col_refresh:
+    if st.button("Refresh Data", help="Force reload data from database"):
+        st.cache_data.clear()  # Clear any cached data
+        st.rerun()
+
+with col_info:
+    # Show database connection info
+    db_info = f"Connected to: {engine.dialect.name} • Engine: {str(engine.url).split('@')[1] if '@' in str(engine.url) else 'Local SQLite'}"
+    st.caption(db_info)
+
+# Load all data with debug logging
 with engine.begin() as conn:
     votes = pd.read_sql("SELECT * FROM votes", conn)
     participants = pd.read_sql("SELECT * FROM participants", conn)
+
+# Debug info - show exact counts and sample IDs
+if not participants.empty:
+    st.info(f"🔍 **Debug Info**: Found {len(participants)} participants, {len(votes)} votes. "
+            f"Participant IDs: {', '.join(participants['participant_id'].head(3).tolist())}"
+            f"{'...' if len(participants) > 3 else ''}")
 
 if votes.empty:
     st.warning("No research data available yet.")
