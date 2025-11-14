@@ -29,6 +29,15 @@ st.markdown("""
 # Simple styling
 st.markdown("""
 <style>
+            
+/* Force headings to be centered on all viewports */
+div.block-container h1,
+div.block-container h3 {
+    text-align: center !important;
+}
+
+
+
 /* Button styling */
 .stButton {
     display: flex !important;
