@@ -624,14 +624,9 @@ elif st.session_state.test_stage == "survey":
             user_type = st.selectbox(
                 "1. How would you describe yourself?",
                 ["Professional artist", "Hobbyist / art student", "Professional designer",
-                 "AI researcher or developer", "None / casual viewer", "Other"],
+                 "AI researcher or developer", "Other"],
                 index=None
             )
-
-            # Add text input for "Other" option
-            other_user_type = ""
-            if user_type == "Other":
-                other_user_type = st.text_input("Please specify:", key="other_user_type")
 
             # Question 3: Art mediums (conditional)
             if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"]:
@@ -828,8 +823,8 @@ elif st.session_state.test_stage == "survey":
             else:
                 # Process "Other" responses by combining them with the selections
 
-                # Handle user type - use custom text if provided
-                final_user_type = other_user_type if user_type == "Other" and other_user_type else user_type
+                # Handle user type
+                final_user_type = user_type
 
                 # Handle art mediums - replace "Other" with custom text
                 final_art_mediums = art_mediums.copy() if isinstance(art_mediums, list) else [art_mediums]
