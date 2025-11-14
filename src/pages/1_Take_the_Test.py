@@ -739,16 +739,13 @@ elif st.session_state.test_stage == "survey":
 
         col7, col8 = st.columns(2)
         with col7:
-            # Question 16: Impact on visibility (optional for artists/designers)
-            if user_type in ["Professional artist", "Hobbyist / art student", "Professional designer"]:
-                visibility_impact = st.selectbox(
-                    "16. [If artist/designer] How has AI affected your work's visibility on social media?",
-                    ["Significantly decreased", "Somewhat decreased", "No change",
-                     "Somewhat increased", "Significantly increased", "Unsure"],
-                    index=None
-                )
-            else:
-                visibility_impact = "Not applicable"
+            # Question 16: Impact on visibility (optional for all user types)
+            visibility_impact = st.selectbox(
+                "16. [If artist/designer] How has AI affected your work's visibility on social media?",
+                ["Significantly decreased", "Somewhat decreased", "No change",
+                 "Somewhat increased", "Significantly increased", "Unsure", "Not applicable"],
+                index=None
+            )
 
         with col8:
             # Placeholder for layout balance
