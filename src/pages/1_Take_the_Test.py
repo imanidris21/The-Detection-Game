@@ -479,7 +479,7 @@ elif st.session_state.test_stage == "test":
         # Skip option under the image - automatically skip when checked
         # Use unique key for each image to prevent state persistence
         skip_key = f"skip_{image_id}"
-        seen_before = st.checkbox("I've seen this image before", key=skip_key)
+        seen_before = st.checkbox("I've seen this image before, skip it please", key=skip_key)
 
         if seen_before:
             # Automatically skip when checkbox is checked
