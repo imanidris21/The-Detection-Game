@@ -46,7 +46,23 @@ streamlit run src/Home.py
 
 ## Acknowledgments
 
-This project uses DINOv3 for feature extraction in our AI detection model. 
+This project uses DINOv3 models developed by Meta for feature extraction in our AI detection model. 
+
+## References
+
+### Datasets
+
+1. **AI-ArtBench Dataset**
+
+   This dataset was originally created for the study "ArtBrain: An Explainable end-to-end Toolkit for Classification and Attribution of AI-Generated Art and Style" by Silva et al.
+
+   Silva et al. (2024) 'ArtBrain: An Explainable end-to-end Toolkit for Classification and Attribution of AI-Generated Art and Style', arXiv. Available at: https://doi.org/10.48550/arXiv.2412.01512
+
+2. **ARIA Dataset**
+
+   Li, Y., Liu, Z., Zhao, J., Ren, L., Li, F., Luo, J., & Luo, B. (2024). The Adversarial AI-Art: Understanding, Generation, Detection, and Benchmarking. arXiv preprint arXiv:2404.14581. Available at: https://arxiv.org/abs/2404.14581
+
+   GitHub: https://github.com/AdvAIArtProject/AdvAIArt
 
 ## Citations
 
