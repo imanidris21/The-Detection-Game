@@ -120,14 +120,13 @@ class DINOv3Backbone(BaseBackbone):
             if str(hub_dir) not in sys.path:
                 sys.path.insert(0, str(hub_dir))
 
-            # Add local dinov3 repository root to path for import
+            # Add dinov3 package to path for import
             import sys
             # Go from src/backend/backbones/ -> src/ -> dinov3/
             src_dir = Path(__file__).parent.parent.parent
-            dinov3_repo_path = src_dir / "dinov3"
-            print(f"Adding DINOv3 path: {dinov3_repo_path}")
-            if str(dinov3_repo_path) not in sys.path:
-                sys.path.insert(0, str(dinov3_repo_path))
+            dinov3_path = src_dir / "dinov3"
+            if str(dinov3_path) not in sys.path:
+                sys.path.insert(0, str(dinov3_path))
 
             from dinov3.hub.backbones import _make_dinov3_vit
 
