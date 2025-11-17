@@ -2,7 +2,7 @@
 backbones/dinov3_backbone.py - DINOv3 backbone implementation
 
 DINOv3 is the latest self-supervised vision transformer from Meta AI,
-trained on 1.7B web images with improved dense feature quality.
+trained on 1.7B web images.
 """
 
 import torch
@@ -26,7 +26,7 @@ class DINOv3Backbone(BaseBackbone):
         """
         Args:
             model_name: DINOv3 model variant ('dinov3_vits16', 'dinov3_vitb16', etc.)
-            device: Device to run on
+            device: Device gpu or cpu
             use_cls_token: Use [CLS] token features (recommended for classification)
             freeze_backbone: Freeze backbone weights (False for neural training)
             extract_multiscale: Extract multi-scale features for segmentation tasks
@@ -58,16 +58,16 @@ class DINOv3Backbone(BaseBackbone):
         # Model architecture configurations (matching DINOv3 hub defaults with all features)
         model_configs = {
             'dinov3_vits16': {
-                'compact_arch_name': 'vits',
+                'compact_arch_name': 'vits', #small
                 'embed_dim': 384,
-                'depth': 12,
+                'depth': 12,            
                 'num_heads': 6,
                 'n_storage_tokens': 4,  # DINOv3 uses 4 storage tokens
                 'mask_k_bias': True,    # Masked attention biases
                 'layerscale_init': 1e-5,  # LayerScale initialization
             },
             'dinov3_vitb16': {
-                'compact_arch_name': 'vitb',
+                'compact_arch_name': 'vitb', # base
                 'embed_dim': 768,
                 'depth': 12,
                 'num_heads': 12,
@@ -76,7 +76,7 @@ class DINOv3Backbone(BaseBackbone):
                 'layerscale_init': 1e-5,
             },
             'dinov3_vitl16': {
-                'compact_arch_name': 'vitl',
+                'compact_arch_name': 'vitl', # large
                 'embed_dim': 1024,
                 'depth': 24,
                 'num_heads': 16,
@@ -93,7 +93,7 @@ class DINOv3Backbone(BaseBackbone):
         # Get checkpoint path - check torch hub cache (standard location)
         checkpoint_name = checkpoint_files[self.model_name]
 
-        # Standard torch hub cache location (same as DINOv2)
+        # Standard torch hub cache location (same as DINOv2) to get pretrained weights
         hub_checkpoint = Path.home() / '.cache' / 'torch' / 'hub' / 'checkpoints' / checkpoint_name
 
         # Fallback: project checkpoints folder
@@ -128,6 +128,7 @@ class DINOv3Backbone(BaseBackbone):
             if str(dinov3_path) not in sys.path:
                 sys.path.insert(0, str(dinov3_path))
 
+            # load model architecture/builder
             from dinov3.hub.backbones import _make_dinov3_vit
 
             config = model_configs[self.model_name]
@@ -168,7 +169,7 @@ class DINOv3Backbone(BaseBackbone):
         elif hasattr(self.model, 'num_features'):
             self.feature_dim = self.model.num_features
         else:
-            # Determine empirically
+            # Fallback: pass a dummy input through the model for testing
             with torch.no_grad():
                 dummy_input = torch.randn(1, 3, 224, 224).to(self.device)
                 dummy_output = self.model(dummy_input)
@@ -192,6 +193,9 @@ class DINOv3Backbone(BaseBackbone):
         # DINOv3 doesn't need special hook setup like CLIP
         # Feature extraction is handled in _extract_features
         pass
+
+
+
 
     def _extract_features(self, images: torch.Tensor) -> torch.Tensor:
         """Extract features using DINOv3 (supports neural mode and multi-scale)"""
@@ -276,6 +280,8 @@ class DINOv3Backbone(BaseBackbone):
 
             return features
 
+
+
     def get_patch_tokens(self, images: torch.Tensor) -> torch.Tensor:
         """
         Get patch tokens (DINOv3-specific functionality)
@@ -296,6 +302,8 @@ class DINOv3Backbone(BaseBackbone):
                 return features[:, 1:]
             else:
                 raise RuntimeError("Cannot extract patch tokens from this model output shape")
+
+
 
     def get_info(self):
         """Get DINOv3-specific information"""
