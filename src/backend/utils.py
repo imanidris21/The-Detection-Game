@@ -222,20 +222,9 @@ def make_pid():
 @safe_db_operation
 def register_participant(engine, pid, info: dict):
     is_postgresql = engine.dialect.name == 'postgresql'
-    logger.info(f"Registering participant {pid} with database type: {engine.dialect.name}")
+    # Reduced logging for performance
 
-    # Force database initialization for PostgreSQL to ensure tables exist
-    if is_postgresql:
-        logger.info("PostgreSQL detected - ensuring database is initialized...")
-        try:
-            logger.info("Calling init_db() function...")
-            init_db(engine)  # Pass the same engine instance
-            logger.info("✅ Database initialization completed successfully")
-        except Exception as e:
-            logger.error(f"❌ Database initialization failed with error: {e}")
-            logger.error(f"❌ Error type: {type(e).__name__}")
-            import traceback
-            logger.error(f"❌ Full traceback: {traceback.format_exc()}")
+    # Database already initialized at app startup - no need to re-initialize
 
             # For debugging, let's try to create tables with a simpler approach
             logger.warning("Attempting simplified table creation as fallback...")
@@ -333,17 +322,9 @@ def mark_finished(engine, pid):
 @safe_db_operation
 def save_vote(engine, rec: dict):
     is_postgresql = engine.dialect.name == 'postgresql'
-    logger.info(f"Saving vote for participant {rec.get('participant_id')} with database type: {engine.dialect.name}")
+    # Reduced logging for performance
 
-    # Force database initialization for PostgreSQL to ensure tables exist
-    if is_postgresql:
-        logger.info("PostgreSQL detected - ensuring database is initialized...")
-        try:
-            init_db(engine)  # Pass the same engine instance
-            logger.info("Database initialization completed successfully")
-        except Exception as e:
-            logger.error(f"Database initialization failed: {e}")
-            raise
+    # Database already initialized at app startup - no need to re-initialize
 
     with engine.begin() as conn:
         try:
@@ -351,7 +332,7 @@ def save_vote(engine, rec: dict):
                 INSERT INTO votes (participant_id, image_id, true_label, human_choice, confidence, response_time_ms, timestamp_utc, detector_pred, detector_confidence, reasoning, generator_model, art_style, order_shown)
                 VALUES (:participant_id, :image_id, :true_label, :human_choice, :confidence, :response_time_ms, :timestamp_utc, :detector_pred, :detector_confidence, :reasoning, :generator_model, :art_style, :order_shown)
             """), [rec])
-            logger.info(f"Successfully saved vote for participant {rec.get('participant_id')}")
+            # Vote saved successfully - reduced logging for performance
         except Exception as e:
             logger.error(f"Failed to save vote: {e}")
             logger.error(f"Vote data: {rec}")

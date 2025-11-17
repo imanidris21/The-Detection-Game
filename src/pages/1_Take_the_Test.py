@@ -52,6 +52,10 @@ engine = get_engine()
 images_meta = load_images_meta()
 detector_preds = load_detector_preds()
 
+# Pre-load the AI detector on app startup to eliminate first-user lag
+# This runs once when the app starts, not per user session
+_ = get_global_detector()
+
 # Only show main title during consent and test stages
 if st.session_state.get("test_stage") in ["consent", "test"]:
     st.title("The Detection Game: Can You Spot AI-Generated Art?")
