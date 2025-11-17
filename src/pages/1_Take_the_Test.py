@@ -11,6 +11,32 @@ from backend.utils import (load_images_meta, load_detector_preds, init_db, get_e
 from backend.detector import get_detector
 
 
+# Performance optimization: Cache detector globally to avoid reloading for each prediction
+@st.cache_resource
+def get_global_detector():
+    """Load the AI detector once and cache it for all users"""
+    import os
+    current_file = os.path.abspath(__file__)  # src/pages/1_Take_the_Test.py
+    src_dir = os.path.dirname(os.path.dirname(current_file))  # src/
+    project_root = os.path.dirname(src_dir)  # project root
+    model_path = os.path.join(project_root, "models", "neural_art_80k_dinov3B_SRM_DCT", "neural_detector_dinov3_vitb16_forensic_best.pth")
+    return get_detector(model_checkpoint_path=model_path)
+
+
+def cleanup_memory():
+    """Force memory cleanup after heavy operations to prevent accumulation"""
+    import gc
+    import torch
+
+    # Force garbage collection
+    gc.collect()
+
+    # Clear PyTorch cache if using GPU
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        torch.cuda.synchronize()
+
+
 st.set_page_config(page_title="Take the Test", layout="wide", initial_sidebar_state="collapsed")
 
 # Show progress in navbar if test is started
@@ -290,17 +316,9 @@ elif st.session_state.test_stage == "test":
     meta = images_meta.set_index("image_id").loc[image_id]
     img_path = os.path.join(IMAGES_DIR, meta["image_filename"])
 
-    # Get AI detector prediction with trained model
-    import os
-    # Get project root: go up from src/pages/ to project root
-    current_file = os.path.abspath(__file__)  # src/pages/1_Take_the_Test.py
-    src_dir = os.path.dirname(os.path.dirname(current_file))  # src/
-    project_root = os.path.dirname(src_dir)  # project root
-    model_path = os.path.join(project_root, "models", "neural_art_80k_dinov3B_SRM_DCT", "neural_detector_dinov3_vitb16_forensic_best.pth")
-
-    # Load AI detector with trained model
-    detector = get_detector(model_checkpoint_path=model_path)
-    detector_result = detector.predict(img_path)
+    # Get AI detector prediction with cached model (optimized)
+    detector_result = get_global_detector().predict(img_path)
+    cleanup_memory()
 
     # Add custom CSS for compact viewport layout
     st.markdown("""
