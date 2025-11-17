@@ -226,18 +226,6 @@ def register_participant(engine, pid, info: dict):
 
     # Database already initialized at app startup - no need to re-initialize
 
-            # For debugging, let's try to create tables with a simpler approach
-            logger.warning("Attempting simplified table creation as fallback...")
-            try:
-                with engine.begin() as conn:
-                    logger.info("Creating participants table with simplified approach...")
-                    conn.execute(text("CREATE TABLE IF NOT EXISTS participants (participant_id TEXT PRIMARY KEY, started_at TEXT, finished_at TEXT, pre_confidence TEXT, pre_training TEXT, user_type TEXT, years_experience TEXT, art_mediums TEXT, ai_familiarity TEXT, ai_frequency TEXT, difficulty TEXT, visual_cues TEXT, hardest_styles TEXT, labeling_importance TEXT, encountered_unlabeled TEXT, concerns TEXT, detection_value TEXT, visibility_impact TEXT, emotions TEXT, additional_comments TEXT)"))
-                    conn.commit()
-                    logger.info("✅ Simplified participants table created")
-            except Exception as e2:
-                logger.error(f"❌ Even simplified table creation failed: {e2}")
-                raise e
-
     with engine.begin() as conn:
         if is_postgresql:
             # PostgreSQL upsert syntax
