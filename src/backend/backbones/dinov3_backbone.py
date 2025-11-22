@@ -106,12 +106,20 @@ class DINOv3Backbone(BaseBackbone):
             checkpoint_path = project_checkpoint
             print(f"Found checkpoint in project folder: {checkpoint_name}")
         else:
-            raise FileNotFoundError(
-                f"Checkpoint not found. Searched:\n"
-                f"  - {hub_checkpoint}\n"
-                f"  - {project_checkpoint}\n"
-                f"Please place the checkpoint in: {hub_checkpoint}"
-            )
+            # Try to download from Google Drive if available
+            try:
+                from ..model_downloader import ensure_dinov3_pretrain_model
+                project_root = Path(__file__).parent.parent.parent.parent  # Go to project root
+                checkpoint_path = ensure_dinov3_pretrain_model(str(project_root))
+                print(f"Downloaded checkpoint from Google Drive: {checkpoint_name}")
+            except Exception as e:
+                raise FileNotFoundError(
+                    f"Checkpoint not found and failed to download. Searched:\n"
+                    f"  - {hub_checkpoint}\n"
+                    f"  - {project_checkpoint}\n"
+                    f"  - Google Drive download failed: {e}\n"
+                    f"Please place the checkpoint in: {hub_checkpoint}"
+                )
 
         try:
             # Import the DINOv3 model builder directly from cached hub

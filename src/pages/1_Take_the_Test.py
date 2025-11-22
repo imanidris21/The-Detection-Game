@@ -9,6 +9,7 @@ from backend.utils import (load_images_meta, load_detector_preds, init_db, get_e
                    make_pid, register_participant, save_vote, mark_finished, IMAGES_DIR, NUM_TRIALS,
                    get_trial_images)
 from backend.detector import get_detector
+from backend.model_downloader import ensure_neural_detector_model
 
 
 # Performance optimization: Cache detector globally to avoid reloading for each prediction
@@ -19,7 +20,10 @@ def get_global_detector():
     current_file = os.path.abspath(__file__)  # src/pages/1_Take_the_Test.py
     src_dir = os.path.dirname(os.path.dirname(current_file))  # src/
     project_root = os.path.dirname(src_dir)  # project root
-    model_path = os.path.join(project_root, "models", "neural_art_80k_dinov3B_SRM_DCT", "neural_detector_dinov3_vitb16_forensic_best.pth")
+
+    # Ensure the model is downloaded from Google Drive
+    model_path = ensure_neural_detector_model(project_root)
+
     return get_detector(model_checkpoint_path=model_path)
 
 

@@ -1,5 +1,5 @@
 """
-model.py -  AI Image Detector with Multiple Backbones and Classifiers
+model.py -  AI Image Detector with Multiple Backbones 
 """
 
 import os
@@ -259,10 +259,10 @@ class AIImageDetector(nn.Module):
                 all_features.append(feats.detach().cpu().numpy())
                 all_labels.append(labels)
 
-        print(f"✅ Feature extraction complete! Processed {total_batches} batches.")
+        print(f"Feature extraction complete! Processed {total_batches} batches.")
         X = np.vstack(all_features)
         y = np.concatenate(all_labels)
-        print(f"📊 Final feature shape: {X.shape}, Labels shape: {y.shape}")
+        print(f"Final feature shape: {X.shape}, Labels shape: {y.shape}")
         return X, y
 
 
@@ -417,6 +417,7 @@ class AIImageDetector(nn.Module):
                 probs = np.clip(probs, 1e-6, 1 - 1e-6)
                 return np.vstack([1 - probs, probs]).T
             raise RuntimeError("Classifier does not support probability prediction")
+
 
 
     def get_feature_importance(self) -> Optional[np.ndarray]:
