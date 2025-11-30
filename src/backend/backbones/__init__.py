@@ -11,6 +11,7 @@ BACKBONE_REGISTRY = {
     'dinov2_vitb14': DINOv3Backbone,
     'dinov2_vitl14': DINOv3Backbone,
     'dinov2_vitg14': DINOv3Backbone,
+    'dinov3_vits16': DINOv3Backbone,
     'dinov3_vitb16': DINOv3Backbone,
     'dinov3_vitl16': DINOv3Backbone,
     'forensic': ForensicBackbone,

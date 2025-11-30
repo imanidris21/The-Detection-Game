@@ -161,6 +161,11 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 238,a7d869f950bc,img_000529,human,human,0.76,33541,2025-11-16T15:50:18.276973+00:00,ai,0.74219376,,human,general_art,10,True,2025-11-16 15:50:18.276973+00:00
 239,09a39031e650,img_000025,human,ai,0.5,39660,2025-11-16T15:50:56.027212+00:00,ai,0.6524667,,human,illustrations,1,False,2025-11-16 15:50:56.027212+00:00
 241,609a458ffe8e,img_000796,ai,ai,0.5,40367,2025-11-16T15:51:44.245699+00:00,human,0.8179558,,dalle,DALL-E_art,1,True,2025-11-16 15:51:44.245699+00:00
+1270,749404e37f62,img_000439,human,seen,0.5,20183,2025-11-22T21:18:54.020229+00:00,ai,0.9759481,Skipped - image seen before,human,expressionism,9,False,2025-11-22 21:18:54.020229+00:00
+1271,749404e37f62,img_000372,ai,seen,0.5,10586,2025-11-22T21:19:06.675632+00:00,human,0.8539395,Skipped - image seen before,starryai,StarryAI_art,10,False,2025-11-22 21:19:06.675632+00:00
+1272,749404e37f62,img_000659,human,human,0.8,14909,2025-11-22T21:19:23.647198+00:00,human,0.69709367,,human,illustrations,11,True,2025-11-22 21:19:23.647198+00:00
+1273,749404e37f62,img_000711,ai,ai,0.7,21006,2025-11-22T21:20:05.007569+00:00,human,0.62694764,,original_ldm,baroque,12,True,2025-11-22 21:20:05.007569+00:00
+1348,5663640441de,img_000559,human,ai,1.0,34959,2025-11-25T11:54:54.595306+00:00,ai,0.91133714,AI generated,human,illustrations,10,False,2025-11-25 11:54:54.595306+00:00
 224,a7d869f950bc,img_000750,human,ai,0.85,12619,2025-11-16T15:46:17.908833+00:00,human,0.73590875,,human,post_impressionism,4,False,2025-11-16 15:46:17.908833+00:00
 225,04cdaa68d52b,img_000785,ai,ai,1.0,14511,2025-11-16T15:46:33.396977+00:00,human,0.7584168,,midjourney,Midjourney_art,5,True,2025-11-16 15:46:33.396977+00:00
 228,04cdaa68d52b,img_000701,human,ai,1.0,16911,2025-11-16T15:47:01.481171+00:00,human,0.9472282,,human,surrealism,6,False,2025-11-16 15:47:01.481171+00:00
@@ -176,6 +181,17 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 255,09a39031e650,img_000787,ai,ai,1.0,15579,2025-11-16T15:56:04.435210+00:00,human,0.92805535,,dalle,DALL-E_art,9,True,2025-11-16 15:56:04.435210+00:00
 257,09a39031e650,img_000211,human,human,0.89,10438,2025-11-16T15:56:25.171105+00:00,human,0.916201,,human,general_art,10,True,2025-11-16 15:56:25.171105+00:00
 258,609a458ffe8e,img_000748,human,human,0.5,22626,2025-11-16T15:56:41.410812+00:00,ai,0.9699629,,human,illustrations,9,True,2025-11-16 15:56:41.410812+00:00
+1274,d22526ee7fc3,img_000174,ai,ai,0.06,13223,2025-11-22T21:26:43.515197+00:00,human,0.7127391,,stable_diffusion,romanticism,1,True,2025-11-22 21:26:43.515197+00:00
+1349,eff7d2a45048,img_000533,ai,human,0.5,21580,2025-11-26T14:43:38.006925+00:00,human,0.9712858,,dalle,DALL-E_art,1,False,2025-11-26 14:43:38.006925+00:00
+1350,eff7d2a45048,img_000603,ai,human,0.5,24559,2025-11-26T14:44:21.115506+00:00,ai,0.7808381,,starryai,StarryAI_pixiv,2,False,2025-11-26 14:44:21.115506+00:00
+1351,eff7d2a45048,img_000401,human,ai,0.5,20565,2025-11-26T14:44:54.867441+00:00,ai,0.6262574,,human,illustrations,3,False,2025-11-26 14:44:54.867441+00:00
+1352,eff7d2a45048,img_000008,ai,ai,0.5,13675,2025-11-26T14:45:23.521027+00:00,human,0.51179755,,original_ldm,realism,4,True,2025-11-26 14:45:23.521027+00:00
+1353,eff7d2a45048,img_000186,human,human,0.5,17011,2025-11-26T14:45:51.671923+00:00,human,0.60703146,,human,surrealism,5,True,2025-11-26 14:45:51.671923+00:00
+1354,eff7d2a45048,img_000450,human,human,0.5,20237,2025-11-26T14:46:21.816167+00:00,ai,0.8303783,,human,general_art,6,True,2025-11-26 14:46:21.816167+00:00
+1355,eff7d2a45048,img_000252,human,human,0.5,22323,2025-11-26T14:46:54.876448+00:00,human,0.67141473,,human,post_impressionism,7,True,2025-11-26 14:46:54.876448+00:00
+1356,eff7d2a45048,img_000242,human,ai,0.5,72392,2025-11-26T14:48:17.640205+00:00,ai,0.9047317,,human,realism,8,False,2025-11-26 14:48:17.640205+00:00
+1357,eff7d2a45048,img_000825,ai,ai,0.5,15453,2025-11-26T14:48:47.199780+00:00,ai,0.6777339,,starryai,StarryAI_pixiv,9,True,2025-11-26 14:48:47.199780+00:00
+1358,eff7d2a45048,img_000019,ai,ai,0.5,18622,2025-11-26T14:49:20.010649+00:00,human,0.90182996,,dalle,DALL-E_art,10,True,2025-11-26 14:49:20.010649+00:00
 232,04cdaa68d52b,img_000509,human,human,1.0,16585,2025-11-16T15:47:52.520424+00:00,human,0.96801907,,human,illustrations,8,True,2025-11-16 15:47:52.520424+00:00
 234,04cdaa68d52b,img_000103,ai,ai,1.0,21401,2025-11-16T15:48:22.638551+00:00,human,0.92056066,,midjourney,Midjourney_pixiv,9,True,2025-11-16 15:48:22.638551+00:00
 243,609a458ffe8e,img_000944,human,ai,0.5,25135,2025-11-16T15:52:35.682316+00:00,ai,0.7758828,,human,impressionism,2,False,2025-11-16 15:52:35.682316+00:00
@@ -229,6 +245,16 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 299,b41809262523,img_000521,ai,human,1.0,53530,2025-11-16T16:26:10.298367+00:00,ai,0.8001141,,starryai,StarryAI_art,3,False,2025-11-16 16:26:10.298367+00:00
 301,b41809262523,img_000361,human,ai,0.87,38418,2025-11-16T16:27:03.149479+00:00,ai,0.65371436,,human,renaissance,4,False,2025-11-16 16:27:03.149479+00:00
 302,b41809262523,img_000699,ai,human,0.86,19920,2025-11-16T16:27:36.144702+00:00,ai,0.7426608,,midjourney,Midjourney_art,5,False,2025-11-16 16:27:36.144702+00:00
+1275,6604e52928be,img_000970,human,seen,0.5,18972,2025-11-23T03:09:49.284937+00:00,ai,0.76807415,Skipped - image seen before,human,illustrations,1,False,2025-11-23 03:09:49.284937+00:00
+1276,6604e52928be,img_000915,human,human,0.5,41048,2025-11-23T03:10:32.401709+00:00,ai,0.96517813,,human,post_impressionism,2,True,2025-11-23 03:10:32.401709+00:00
+1280,6604e52928be,img_000976,human,human,0.5,18602,2025-11-23T03:13:23.241383+00:00,human,0.969585,,human,illustrations,5,True,2025-11-23 03:13:23.241383+00:00
+1281,6604e52928be,img_000919,human,human,0.5,14487,2025-11-23T03:13:47.241998+00:00,human,0.60800445,,human,general_art,6,True,2025-11-23 03:13:47.241998+00:00
+1282,6604e52928be,img_000316,ai,human,0.5,13097,2025-11-23T03:14:08.354467+00:00,ai,0.9268011,,dalle,DALL-E_art,7,False,2025-11-23 03:14:08.354467+00:00
+1283,6604e52928be,img_000550,human,human,0.5,16805,2025-11-23T03:14:32.785211+00:00,ai,0.6863685,,human,realism,8,True,2025-11-23 03:14:32.785211+00:00
+1284,6604e52928be,img_000886,ai,human,0.5,26075,2025-11-23T03:15:23.186171+00:00,human,0.81574273,,midjourney,Midjourney_art,9,False,2025-11-23 03:15:23.186171+00:00
+1285,6604e52928be,img_000024,ai,human,0.5,47901,2025-11-23T03:16:28.478005+00:00,human,0.6283218,,starryai,StarryAI_pixiv,10,False,2025-11-23 03:16:28.478005+00:00
+1359,bcf568abba35,img_000563,human,seen,0.5,24636,2025-11-26T16:39:50.403988+00:00,human,0.7915706,Skipped - image seen before,human,renaissance,1,False,2025-11-26 16:39:50.403988+00:00
+1360,bcf568abba35,img_000128,human,seen,0.5,3889,2025-11-26T16:39:56.395078+00:00,ai,0.7928635,Skipped - image seen before,human,renaissance,2,False,2025-11-26 16:39:56.395078+00:00
 296,652883188c82,img_000474,ai,ai,1.0,28481,2025-11-16T16:24:43.298041+00:00,human,0.63583314,,dreamstudio,DreamStudio_pixiv,8,True,2025-11-16 16:24:43.298041+00:00
 297,b41809262523,img_000816,human,human,0.9,59091,2025-11-16T16:25:04.196386+00:00,human,0.64883745,,human,illustrations,2,True,2025-11-16 16:25:04.196386+00:00
 300,652883188c82,img_000795,human,human,1.0,14026,2025-11-16T16:26:26.060742+00:00,ai,0.93368894,,human,ukiyo_e,10,True,2025-11-16 16:26:26.060742+00:00
@@ -342,6 +368,9 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 410,c2639157f0c3,img_000019,ai,ai,0.5,70844,2025-11-16T19:25:25.763327+00:00,ai,0.9631729,Very smooth face painting and an extra finger in the hand on the left,dalle,DALL-E_art,2,True,2025-11-16 19:25:25.763327+00:00
 411,c2639157f0c3,img_000601,human,human,0.59,114807,2025-11-16T19:27:37.982594+00:00,ai,0.58077425,I think the hand painting is obvious it’s not very clean which makes it human made for me,human,art_nouveau,3,True,2025-11-16 19:27:37.982594+00:00
 412,c2639157f0c3,img_000863,ai,seen,0.5,9329,2025-11-16T19:28:08.012049+00:00,ai,0.9921919,Skipped - image seen before,dalle,DALL-E_art,4,False,2025-11-16 19:28:08.012049+00:00
+1277,6604e52928be,img_000749,ai,human,0.5,52872,2025-11-23T03:12:01.182542+00:00,ai,0.57080334,,stable_diffusion,romanticism,3,False,2025-11-23 03:12:01.182542+00:00
+1278,6604e52928be,img_000363,ai,human,0.5,29298,2025-11-23T03:12:52.553134+00:00,ai,0.8875794,,dreamstudio,DreamStudio_art,4,False,2025-11-23 03:12:52.553134+00:00
+1279,6604e52928be,img_000976,human,human,0.5,16921,2025-11-23T03:13:21.560100+00:00,ai,0.7578927,,human,illustrations,5,True,2025-11-23 03:13:21.560100+00:00
 413,c2639157f0c3,img_000863,ai,ai,0.5,158581,2025-11-16T19:30:37.263139+00:00,human,0.81054467,I think it is missing the point of the painting or I don’t see any message from it,dalle,DALL-E_art,4,True,2025-11-16 19:30:37.263139+00:00
 414,c2639157f0c3,img_000403,ai,human,0.51,141190,2025-11-16T19:33:09.069878+00:00,human,0.73151404,I think the coloring makes it human made,dreamstudio,DreamStudio_art,5,False,2025-11-16 19:33:09.069878+00:00
 415,c2639157f0c3,img_000059,human,human,0.5,49675,2025-11-16T19:34:10.480720+00:00,human,0.7146541,,human,illustrations,6,True,2025-11-16 19:34:10.480720+00:00
@@ -423,6 +452,7 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 510,bfdde2dd4aed,img_000698,ai,ai,1.0,70025,2025-11-16T20:37:06.892258+00:00,human,0.6546851,Blurred background + hands and feet,dreamstudio,DreamStudio_pixiv,3,True,2025-11-16 20:37:06.892258+00:00
 519,d203ca6cea60,img_000584,human,ai,0.5,21141,2025-11-16T20:39:31.956332+00:00,ai,0.8795342,,human,general_art,6,False,2025-11-16 20:39:31.956332+00:00
 520,d203ca6cea60,img_000219,human,human,0.5,15253,2025-11-16T20:39:58.024100+00:00,human,0.81330734,,human,illustrations,7,True,2025-11-16 20:39:58.024100+00:00
+1286,427caeb5193d,img_000344,ai,human,0.5,32968,2025-11-23T05:15:44.550539+00:00,ai,0.9392906,,original_ldm,impressionism,1,False,2025-11-23 05:15:44.550539+00:00
 468,b71cdcb13c97,img_000049,ai,human,0.5,32151,2025-11-16T20:06:03.811850+00:00,ai,0.620636,,dreamstudio,DreamStudio_art,5,False,2025-11-16 20:06:03.811850+00:00
 469,b71cdcb13c97,img_000792,ai,ai,0.5,29772,2025-11-16T20:06:43.093663+00:00,ai,0.64961636,,dalle,DALL-E_art,6,True,2025-11-16 20:06:43.093663+00:00
 471,5332271a83fd,img_000616,ai,ai,0.5,27197,2025-11-16T20:07:23.399790+00:00,human,0.5743863,,stable_diffusion,renaissance,3,True,2025-11-16 20:07:23.399790+00:00
@@ -529,6 +559,19 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 597,7f45d43f85e3,img_000945,human,ai,1.0,82203,2025-11-17T07:54:40.091526+00:00,ai,0.8613845,"I would guess that it is an attempt by artificial intelligence to imitate abstract art, or whatever it is called.",human,post_impressionism,7,False,2025-11-17 07:54:40.091526+00:00
 598,7f45d43f85e3,img_000442,human,ai,0.9,88705,2025-11-17T07:56:23.340614+00:00,human,0.5061287,"The field looks like another lake, and the wooden fence seems to be inside the water, not on land.",human,realism,8,False,2025-11-17 07:56:23.340614+00:00
 600,7f45d43f85e3,img_000289,human,human,1.0,37482,2025-11-17T07:57:11.750924+00:00,human,0.85346425,Seems like human-made.,human,expressionism,9,True,2025-11-17 07:57:11.750924+00:00
+1287,427caeb5193d,img_000463,ai,human,0.8,19268,2025-11-23T05:16:59.204947+00:00,ai,0.8470938,,stable_diffusion,romanticism,2,False,2025-11-23 05:16:59.204947+00:00
+1288,427caeb5193d,img_000278,human,human,0.5,24937,2025-11-23T05:17:34.466864+00:00,ai,0.8466439,,human,realism,3,True,2025-11-23 05:17:34.466864+00:00
+1289,427caeb5193d,img_000323,human,human,0.5,17787,2025-11-23T05:18:07.394178+00:00,ai,0.7400159,,human,art_nouveau,4,True,2025-11-23 05:18:07.394178+00:00
+1291,427caeb5193d,img_000009,human,human,0.5,23223,2025-11-23T05:19:22.138513+00:00,ai,0.73013407,,human,realism,6,True,2025-11-23 05:19:22.138513+00:00
+1292,427caeb5193d,img_000452,ai,ai,0.5,25570,2025-11-23T05:20:01.073804+00:00,human,0.9722691,,dreamstudio,DreamStudio_art,7,True,2025-11-23 05:20:01.073804+00:00
+1293,427caeb5193d,img_000588,human,human,0.5,17501,2025-11-23T05:20:29.623270+00:00,human,0.9390968,,human,general_art,8,True,2025-11-23 05:20:29.623270+00:00
+1294,427caeb5193d,img_000366,ai,human,0.5,58475,2025-11-23T05:21:37.044643+00:00,human,0.8364232,,dalle,DALL-E_art,9,False,2025-11-23 05:21:37.044643+00:00
+1295,427caeb5193d,img_000347,human,human,0.5,18550,2025-11-23T05:22:04.473912+00:00,human,0.52605724,,human,illustrations,10,True,2025-11-23 05:22:04.473912+00:00
+1299,ef51f05d5a0a,img_000356,ai,ai,0.68,14718,2025-11-23T05:40:37.331516+00:00,human,0.8161111,Ai,dalle,DALL-E_art,4,True,2025-11-23 05:40:37.331516+00:00
+1300,ef51f05d5a0a,img_000269,ai,human,0.5,12957,2025-11-23T05:41:04.893086+00:00,ai,0.80363333,Human,dreamstudio,DreamStudio_pixiv,5,False,2025-11-23 05:41:04.893086+00:00
+1303,ef51f05d5a0a,img_000495,human,ai,0.5,15592,2025-11-23T05:42:23.989585+00:00,human,0.6750067,Ai,human,general_art,8,False,2025-11-23 05:42:23.989585+00:00
+1304,ef51f05d5a0a,img_000968,human,ai,0.5,14898,2025-11-23T05:42:50.255934+00:00,ai,0.69985557,Ai,human,illustrations,9,False,2025-11-23 05:42:50.255934+00:00
+1305,ef51f05d5a0a,img_000490,human,human,0.5,13432,2025-11-23T05:43:14.106183+00:00,ai,0.7275983,Hu,human,illustrations,10,True,2025-11-23 05:43:14.106183+00:00
 599,7f45d43f85e3,img_000289,human,human,1.0,31713,2025-11-17T07:57:05.981906+00:00,ai,0.851863,Seems like human-made.,human,expressionism,9,True,2025-11-17 07:57:05.981906+00:00
 601,7f45d43f85e3,img_000205,ai,human,0.75,40865,2025-11-17T07:58:01.793966+00:00,human,0.5616953,"I'm confused, but I'll go with human-made.",dreamstudio,DreamStudio_art,10,False,2025-11-17 07:58:01.793966+00:00
 602,7ab6952fd9a7,img_000510,ai,human,0.5,55874,2025-11-17T08:11:35.594662+00:00,human,0.59205437,the drawing lines,dalle,DALL-E_art,1,False,2025-11-17 08:11:35.594662+00:00
@@ -589,6 +632,7 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 670,cb8026030168,img_000048,ai,ai,0.79,51400,2025-11-17T11:50:49.378835+00:00,human,0.6688795,Something is off. Maybe that the bowl has like babies in it...,midjourney,Midjourney_pixiv,8,True,2025-11-17 11:50:49.378835+00:00
 671,cb8026030168,img_000048,ai,ai,0.79,54419,2025-11-17T11:50:52.398106+00:00,human,0.5997,Something is off. Maybe that the bowl has like babies in it...,midjourney,Midjourney_pixiv,8,True,2025-11-17 11:50:52.398106+00:00
 674,cb8026030168,img_000086,ai,ai,0.81,50056,2025-11-17T11:52:00.451961+00:00,human,0.7700045,The lighting is off..,midjourney,Midjourney_art,9,True,2025-11-17 11:52:00.451961+00:00
+1290,427caeb5193d,img_000405,human,human,0.5,20142,2025-11-23T05:18:47.245553+00:00,human,0.91504073,,human,illustrations,5,True,2025-11-23 05:18:47.245553+00:00
 649,cb8026030168,img_000300,ai,ai,0.69,36458,2025-11-17T11:45:26.922797+00:00,ai,0.88471645,No idea on this one.,midjourney,Midjourney_pixiv,4,True,2025-11-17 11:45:26.922797+00:00
 650,03133b5f4536,img_000056,human,ai,0.8,38093,2025-11-17T11:45:51.100334+00:00,ai,0.6338375,the date,human,general_art,2,False,2025-11-17 11:45:51.100334+00:00
 652,03133b5f4536,img_000038,ai,ai,0.7,14951,2025-11-17T11:46:17.298092+00:00,human,0.8468639,,dreamstudio,DreamStudio_art,3,True,2025-11-17 11:46:17.298092+00:00
@@ -609,6 +653,11 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 688,a0fa33d5ddef,img_000449,ai,ai,0.71,37667,2025-11-17T12:18:21.240206+00:00,human,0.9148068,The hands look weird,starryai,StarryAI_pixiv,3,True,2025-11-17 12:18:21.240206+00:00
 690,a0fa33d5ddef,img_000819,ai,ai,0.5,55622,2025-11-17T12:20:35.977536+00:00,ai,0.5049164,It's very low res and the texture of the piece is inconsistent,original_ldm,surrealism,5,True,2025-11-17 12:20:35.977536+00:00
 693,a0fa33d5ddef,img_000381,human,ai,0.39,66553,2025-11-17T12:23:49.936345+00:00,ai,0.5832155,The trees are incomplete,human,realism,8,False,2025-11-17 12:23:49.936345+00:00
+1296,ef51f05d5a0a,img_000405,human,human,0.5,24839,2025-11-23T05:38:43.580306+00:00,ai,0.73634696,Lines,human,illustrations,1,True,2025-11-23 05:38:43.580306+00:00
+1297,ef51f05d5a0a,img_000650,human,human,0.5,33322,2025-11-23T05:39:35.480560+00:00,ai,0.70732665,Lines,human,realism,2,True,2025-11-23 05:39:35.480560+00:00
+1298,ef51f05d5a0a,img_000666,human,human,0.87,19279,2025-11-23T05:40:07.389554+00:00,human,0.5550415,Human made,human,general_art,3,True,2025-11-23 05:40:07.389554+00:00
+1301,ef51f05d5a0a,img_000687,ai,ai,0.5,15694,2025-11-23T05:41:40.136208+00:00,ai,0.9130634,Ai,starryai,StarryAI_pixiv,6,True,2025-11-23 05:41:40.136208+00:00
+1302,ef51f05d5a0a,img_000915,human,human,0.5,13630,2025-11-23T05:42:01.103265+00:00,human,0.9174432,Human,human,post_impressionism,7,True,2025-11-23 05:42:01.103265+00:00
 662,cb8026030168,img_000209,human,ai,0.8,69792,2025-11-17T11:49:37.810314+00:00,ai,0.6821945,again - same weird brush strokes. Feels a little chaotic for a painter.,human,post_impressionism,7,False,2025-11-17 11:49:37.810314+00:00
 673,cb8026030168,img_000086,ai,ai,0.81,46163,2025-11-17T11:51:56.558797+00:00,ai,0.5866171,The lighting is off..,midjourney,Midjourney_art,9,True,2025-11-17 11:51:56.558797+00:00
 677,79ff901247be,img_000282,ai,seen,0.5,30874,2025-11-17T12:08:29.009159+00:00,ai,0.9751322,Skipped - image seen before,midjourney,Midjourney_art,1,False,2025-11-17 12:08:29.009159+00:00
@@ -655,6 +704,7 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 722,37ee1c823780,img_000282,ai,human,0.65,50669,2025-11-17T13:27:06.209863+00:00,ai,0.98548937,,midjourney,Midjourney_art,1,False,2025-11-17 13:27:06.209863+00:00
 724,37ee1c823780,img_000778,ai,ai,0.84,11744,2025-11-17T13:28:02.341407+00:00,human,0.5733484,,original_ldm,post_impressionism,3,True,2025-11-17 13:28:02.341407+00:00
 729,37ee1c823780,img_000248,human,ai,0.7,13242,2025-11-17T13:29:29.633708+00:00,ai,0.5315258,,human,general_art,6,False,2025-11-17 13:29:29.633708+00:00
+1306,410732594e02,img_000681,ai,ai,1.0,165438,2025-11-23T09:12:39.155673+00:00,human,0.9629783,,stable_diffusion,post_impressionism,1,True,2025-11-23 09:12:39.155673+00:00
 725,37ee1c823780,img_000997,human,human,0.5,29823,2025-11-17T13:28:44.107607+00:00,human,0.88649344,,human,romanticism,4,True,2025-11-17 13:28:44.107607+00:00
 726,37ee1c823780,img_000872,human,human,0.85,9841,2025-11-17T13:29:03.330155+00:00,ai,0.77005064,,human,ukiyo_e,5,True,2025-11-17 13:29:03.330155+00:00
 727,37ee1c823780,img_000872,human,human,0.85,12702,2025-11-17T13:29:06.191496+00:00,ai,0.52584267,,human,ukiyo_e,5,True,2025-11-17 13:29:06.191496+00:00
@@ -765,6 +815,18 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 838,40eb1afbd6d8,img_000890,ai,human,0.72,25142,2025-11-17T19:59:04.394320+00:00,ai,0.7188952,,original_ldm,expressionism,6,False,2025-11-17 19:59:04.394320+00:00
 839,40eb1afbd6d8,img_000747,ai,ai,0.5,11277,2025-11-17T19:59:23.581850+00:00,human,0.5148245,,starryai,StarryAI_pixiv,7,True,2025-11-17 19:59:23.581850+00:00
 845,ec903dc71b83,img_000536,ai,human,0.95,79758,2025-11-17T20:13:18.260720+00:00,human,0.99155366,The paint is realistic.,midjourney,Midjourney_art,2,False,2025-11-17 20:13:18.260720+00:00
+1307,2c61eb2ef5a7,img_000951,human,ai,0.5,152802,2025-11-23T12:59:45.298647+00:00,ai,0.8080512,The  perfection in details,human,illustrations,1,False,2025-11-23 12:59:45.298647+00:00
+1308,2c61eb2ef5a7,img_000892,ai,seen,0.5,39977,2025-11-23T13:01:01.059700+00:00,ai,0.56846964,Skipped - image seen before,original_ldm,ukiyo-e,2,False,2025-11-23 13:01:01.059700+00:00
+1309,2c61eb2ef5a7,img_000953,ai,seen,0.5,14964,2025-11-23T13:01:18.095153+00:00,human,0.99216276,Skipped - image seen before,midjourney,Midjourney_art,3,False,2025-11-23 13:01:18.095153+00:00
+1310,2c61eb2ef5a7,img_000999,human,ai,0.5,30762,2025-11-23T13:01:50.948660+00:00,ai,0.6325079,,human,illustrations,4,False,2025-11-23 13:01:50.948660+00:00
+1311,2c61eb2ef5a7,img_000302,human,ai,0.5,22996,2025-11-23T13:02:26.123063+00:00,ai,0.7751288,,human,surrealism,5,False,2025-11-23 13:02:26.123063+00:00
+1312,2c61eb2ef5a7,img_000230,human,ai,0.5,14585,2025-11-23T13:02:52.197483+00:00,ai,0.89890933,,human,general_art,6,False,2025-11-23 13:02:52.197483+00:00
+1313,2c61eb2ef5a7,img_000560,human,ai,0.5,13923,2025-11-23T13:03:17.946207+00:00,human,0.7275472,,human,general_art,7,False,2025-11-23 13:03:17.946207+00:00
+1314,2c61eb2ef5a7,img_000229,ai,ai,0.5,13809,2025-11-23T13:03:42.813724+00:00,ai,0.6957537,,dalle,DALL-E_pixiv,8,True,2025-11-23 13:03:42.813724+00:00
+1315,2c61eb2ef5a7,img_000973,ai,ai,0.5,17575,2025-11-23T13:04:14.646379+00:00,ai,0.9476207,,original_ldm,post_impressionism,9,True,2025-11-23 13:04:14.646379+00:00
+1316,2c61eb2ef5a7,img_000525,ai,ai,0.5,14872,2025-11-23T13:04:39.785143+00:00,ai,0.76931006,,original_ldm,impressionism,10,True,2025-11-23 13:04:39.785143+00:00
+1317,2c61eb2ef5a7,img_000728,human,ai,0.5,17093,2025-11-23T13:05:08.714171+00:00,human,0.50914085,,human,general_art,11,False,2025-11-23 13:05:08.714171+00:00
+1318,2c61eb2ef5a7,img_000355,human,human,0.5,15238,2025-11-23T13:05:33.221217+00:00,human,0.886491,,human,illustrations,12,True,2025-11-23 13:05:33.221217+00:00
 824,9dc90ec4d22c,img_000817,human,ai,0.62,27833,2025-11-17T19:48:08.515064+00:00,ai,0.7290021,,human,illustrations,3,False,2025-11-17 19:48:08.515064+00:00
 825,9dc90ec4d22c,img_000137,ai,ai,0.78,17439,2025-11-17T19:48:37.529275+00:00,human,0.8825859,,stable_diffusion,surrealism,4,True,2025-11-17 19:48:37.529275+00:00
 826,9dc90ec4d22c,img_000443,human,human,0.67,14429,2025-11-17T19:49:03.579222+00:00,human,0.79898775,,human,baroque,5,True,2025-11-17 19:49:03.579222+00:00
@@ -832,6 +894,11 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 924,4575fee3ab94,img_000544,ai,ai,0.5,35072,2025-11-17T22:03:53.685487+00:00,ai,0.81909424,,stable_diffusion,surrealism,11,True,2025-11-17 22:03:53.685487+00:00
 925,c5842371f060,img_000783,ai,human,0.5,18215,2025-11-17T22:04:01.595045+00:00,human,0.6669765,,stable_diffusion,expressionism,6,False,2025-11-17 22:04:01.595045+00:00
 930,c5842371f060,img_000249,ai,human,0.6,23530,2025-11-17T22:06:04.041257+00:00,ai,0.7318913,,starryai,StarryAI_pixiv,10,False,2025-11-17 22:06:04.041257+00:00
+1319,26010cfd7374,img_000947,ai,ai,0.75,36025,2025-11-23T23:07:31.252105+00:00,ai,0.6732422,,starryai,StarryAI_art,1,True,2025-11-23 23:07:31.252105+00:00
+1323,26010cfd7374,img_000996,ai,ai,0.5,15168,2025-11-23T23:09:26.053099+00:00,human,0.7817162,,original_ldm,post_impressionism,5,True,2025-11-23 23:09:26.053099+00:00
+1324,26010cfd7374,img_000085,ai,ai,0.94,20994,2025-11-23T23:09:54.811449+00:00,ai,0.9800553,,dreamstudio,DreamStudio_pixiv,6,True,2025-11-23 23:09:54.811449+00:00
+1325,26010cfd7374,img_000323,human,human,0.5,18872,2025-11-23T23:10:20.970866+00:00,human,0.96758956,,human,art_nouveau,7,True,2025-11-23 23:10:20.970866+00:00
+1326,26010cfd7374,img_000901,human,human,0.74,21141,2025-11-23T23:10:49.506276+00:00,ai,0.85849065,,human,baroque,8,True,2025-11-23 23:10:49.506276+00:00
 887,19eaa80efc7c,img_000702,ai,ai,0.72,110942,2025-11-17T21:28:57.644031+00:00,ai,0.8518444,The faces have inconsistencies and the hand stretching out doesn't make sense,original_ldm,impressionism,4,True,2025-11-17 21:28:57.644031+00:00
 891,19eaa80efc7c,img_000984,human,ai,0.8,60571,2025-11-17T21:31:51.287023+00:00,ai,0.7258734,No flaws is a sign of ai,human,illustrations,6,False,2025-11-17 21:31:51.287023+00:00
 892,19eaa80efc7c,img_000324,ai,ai,0.75,32660,2025-11-17T21:32:36.514805+00:00,human,0.9923371,Alien is not really defined properly,original_ldm,surrealism,7,True,2025-11-17 21:32:36.514805+00:00
@@ -941,6 +1008,11 @@ id,participant_id,image_id,true_label,human_choice,confidence,response_time_ms,t
 1010,31a57d722513,img_000212,ai,human,0.5,15013,2025-11-18T13:16:13.280757+00:00,human,0.7465665,,starryai,StarryAI_pixiv,7,False,2025-11-18 13:16:13.280757+00:00
 1013,31a57d722513,img_000929,ai,human,0.5,12053,2025-11-18T13:17:02.923326+00:00,human,0.86764634,,starryai,StarryAI_art,9,False,2025-11-18 13:17:02.923326+00:00
 1014,07360e2d50b2,img_000374,ai,human,0.77,21534,2025-11-18T13:17:22.028440+00:00,human,0.5723254,,stable_diffusion,ukiyo-e,9,False,2025-11-18 13:17:22.028440+00:00
+1320,26010cfd7374,img_000523,ai,ai,1.0,12995,2025-11-23T23:07:55.663851+00:00,human,0.58455783,,original_ldm,renaissance,2,True,2025-11-23 23:07:55.663851+00:00
+1321,26010cfd7374,img_000708,human,ai,0.76,25553,2025-11-23T23:08:34.442841+00:00,ai,0.6391397,,human,general_art,3,False,2025-11-23 23:08:34.442841+00:00
+1322,26010cfd7374,img_000972,ai,human,0.14,18966,2025-11-23T23:09:01.863936+00:00,ai,0.751971,,dalle,DALL-E_pixiv,4,False,2025-11-23 23:09:01.863936+00:00
+1327,26010cfd7374,img_000491,human,ai,0.72,13446,2025-11-23T23:11:11.490997+00:00,human,0.7284033,,human,impressionism,9,False,2025-11-23 23:11:11.490997+00:00
+1328,26010cfd7374,img_000533,ai,human,0.74,14454,2025-11-23T23:11:32.827549+00:00,human,0.8529283,,dalle,DALL-E_art,10,False,2025-11-23 23:11:32.827549+00:00
 1009,07360e2d50b2,img_000160,human,human,0.5,16795,2025-11-18T13:15:53.432544+00:00,human,0.92706436,,human,ukiyo_e,7,True,2025-11-18 13:15:53.432544+00:00
 1011,07360e2d50b2,img_000244,ai,human,0.64,19290,2025-11-18T13:16:28.545707+00:00,ai,0.8902839,,stable_diffusion,expressionism,8,False,2025-11-18 13:16:28.545707+00:00
 1012,31a57d722513,img_000578,ai,ai,0.5,14082,2025-11-18T13:16:41.493957+00:00,human,0.78122884,,dreamstudio,DreamStudio_pixiv,8,True,2025-11-18 13:16:41.493957+00:00
@@ -1004,6 +1076,13 @@ The girl's hands are missing and the drape her cardigan does not sit correctly."
 1078,4d3c92e06a0d,img_000100,human,human,0.5,67399,2025-11-18T15:52:14.944278+00:00,human,0.5986238,,human,post_impressionism,8,True,2025-11-18 15:52:14.944278+00:00
 1080,4d3c92e06a0d,img_000600,human,human,0.61,45968,2025-11-18T15:54:03.179774+00:00,ai,0.536225,,human,general_art,10,True,2025-11-18 15:54:03.179774+00:00
 1081,4d3c92e06a0d,img_000665,ai,ai,0.71,67875,2025-11-18T15:55:21.912626+00:00,ai,0.95005065,,midjourney,Midjourney_art,11,True,2025-11-18 15:55:21.912626+00:00
+1329,91c30a670d85,img_000843,human,ai,1.0,177685,2025-11-24T04:29:00.520067+00:00,human,0.6517817,The right foot of the man in the green blanket has toes that are flipped. Pretty confident tthis is Ai -generated. Also feel like AI blurs or makes some limbs a bit incoherent.,human,renaissance,1,False,2025-11-24 04:29:00.520067+00:00
+1330,91c30a670d85,img_000458,human,human,0.78,70135,2025-11-24T04:30:42.523801+00:00,human,0.6648015,im gonna assume human-made because I think AI typically doesnt render genetalia thought I could be wrong.,human,ukiyo_e,2,True,2025-11-24 04:30:42.523801+00:00
+1332,91c30a670d85,img_000186,human,ai,0.5,93263,2025-11-24T04:33:38.550700+00:00,ai,0.73332614,not sure honestly. either this is some dali painting i have never seen or this is AI's version of some dali piece?,human,surrealism,4,False,2025-11-24 04:33:38.550700+00:00
+1333,91c30a670d85,img_000863,ai,human,0.5,71643,2025-11-24T04:34:59.772593+00:00,ai,0.53710306,,dalle,DALL-E_art,5,False,2025-11-24 04:34:59.772593+00:00
+1334,91c30a670d85,img_000476,ai,ai,1.0,45610,2025-11-24T04:35:56.014087+00:00,human,0.8344823,The text gives it away to me that this is ai generated. I feel like it always struggles to replicate text in generated images.,dalle,DALL-E_pixiv,6,True,2025-11-24 04:35:56.014087+00:00
+1337,91c30a670d85,img_000383,ai,ai,1.0,28039,2025-11-24T04:38:23.416797+00:00,human,0.70126563,looks a bit blury around the hands,dalle,DALL-E_art,9,True,2025-11-24 04:38:23.416797+00:00
+1338,91c30a670d85,img_000663,ai,ai,1.0,52823,2025-11-24T04:39:25.576036+00:00,ai,0.9483809,The hands look super off. And I dont know any japanese but the letters look blurry and jumbled too,starryai,StarryAI_pixiv,10,True,2025-11-24 04:39:25.576036+00:00
 1058,5615d364ac05,img_000939,human,human,0.55,158823,2025-11-18T15:31:12.870814+00:00,human,0.9050017,"Details and textures seem logical. There's a warmth to it that seems human. Face is abstracted, which almost makes it look a bit AI-ish. Hands are mostly convincing.",human,general_art,8,True,2025-11-18 15:31:12.870814+00:00
 1059,5615d364ac05,img_000391,ai,ai,0.85,146257,2025-11-18T15:33:47.557087+00:00,ai,0.5232214,Looks convincing at first. Details of faces in particular are very warped and distorted. Architecture in top left corner makes no sense.,starryai,StarryAI_art,9,True,2025-11-18 15:33:47.557087+00:00
 1060,f85eb82ea877,img_000934,human,ai,0.5,21302,2025-11-18T15:35:20.429867+00:00,ai,0.9828549,not so real,human,illustrations,1,False,2025-11-18 15:35:20.429867+00:00
@@ -1112,6 +1191,9 @@ The girl's hands are missing and the drape her cardigan does not sit correctly."
 1178,bdf96db3939e,img_000264,ai,ai,0.61,17051,2025-11-18T21:07:45.053991+00:00,ai,0.50710875,,stable_diffusion,ukiyo-e,7,True,2025-11-18 21:07:45.053991+00:00
 1180,bdf96db3939e,img_000236,ai,ai,0.6,14505,2025-11-18T21:08:44.185446+00:00,human,0.83411896,,original_ldm,art_nouveau,9,True,2025-11-18 21:08:44.185446+00:00
 1181,bdf96db3939e,img_000812,human,ai,0.64,14264,2025-11-18T21:09:20.325990+00:00,ai,0.8233053,,human,surrealism,10,False,2025-11-18 21:09:20.325990+00:00
+1331,91c30a670d85,img_000770,human,ai,1.0,55384,2025-11-24T04:31:46.908017+00:00,ai,0.99093837,The eyes look very Ai generated. An theres this Ai brushstroke effect on the clothing that makes me believe this is AI,human,baroque,3,False,2025-11-24 04:31:46.908017+00:00
+1335,91c30a670d85,img_000548,ai,human,0.77,56763,2025-11-24T04:37:07.102958+00:00,human,0.9603235,it doesnt really resemble anything so im gonna assume human. because i think Ai always draws something coherent,dalle,DALL-E_art,7,False,2025-11-24 04:37:07.102958+00:00
+1336,91c30a670d85,img_000506,human,human,1.0,25287,2025-11-24T04:37:46.182208+00:00,ai,0.53031856,,human,baroque,8,True,2025-11-24 04:37:46.182208+00:00
 1179,bdf96db3939e,img_000521,ai,ai,0.57,28383,2025-11-18T21:08:21.931818+00:00,ai,0.78133446,,starryai,StarryAI_art,8,True,2025-11-18 21:08:21.931818+00:00
 1182,5e2c1d095503,img_000742,ai,ai,0.76,100514,2025-11-19T00:01:03.571344+00:00,ai,0.95044076,The limbs of the animals and human morph into weird shapes.,starryai,StarryAI_art,1,True,2025-11-19 00:01:03.571344+00:00
 1183,5e2c1d095503,img_000928,ai,human,0.9,128086,2025-11-19T00:03:22.089123+00:00,human,0.6691322,"It seems similar to other Japanese art I’ve seen, but more importantly everything seems intentional not just a mash of different ideas.",stable_diffusion,ukiyo-e,2,False,2025-11-19 00:03:22.089123+00:00
@@ -1153,3 +1235,60 @@ The girl's hands are missing and the drape her cardigan does not sit correctly."
 1219,8aa0a4bead89,img_000207,human,human,0.5,14811,2025-11-19T12:33:34.793301+00:00,ai,0.68505776,,human,realism,8,True,2025-11-19 12:33:34.793301+00:00
 1220,8aa0a4bead89,img_000015,ai,human,0.5,14996,2025-11-19T12:34:04.441681+00:00,human,0.927216,,midjourney,Midjourney_pixiv,9,False,2025-11-19 12:34:04.441681+00:00
 1221,8aa0a4bead89,img_000226,human,human,0.5,12531,2025-11-19T12:34:29.324950+00:00,human,0.5461294,,human,general_art,10,True,2025-11-19 12:34:29.324950+00:00
+1222,d378b2656699,img_000204,ai,ai,1.0,49930,2025-11-19T20:02:48.809097+00:00,human,0.64126766,"High contrast, weird hands, blurry",original_ldm,surrealism,1,True,2025-11-19 20:02:48.809097+00:00
+1223,d378b2656699,img_000139,ai,human,0.7,84166,2025-11-19T20:04:23.329122+00:00,human,0.98857987,Colours are harmonious  which I don't think AI does very well.,dreamstudio,DreamStudio_art,2,False,2025-11-19 20:04:23.329122+00:00
+1224,d378b2656699,img_000450,human,human,0.5,20779,2025-11-19T20:04:53.096017+00:00,ai,0.84938973,Clear text,human,general_art,3,True,2025-11-19 20:04:53.096017+00:00
+1225,d378b2656699,img_000932,human,human,0.6,52633,2025-11-19T20:05:53.054391+00:00,human,0.7887666,The bottom part of the image is completely different to the rest of it.,human,realism,4,True,2025-11-19 20:05:53.054391+00:00
+1339,5663640441de,img_000943,human,ai,0.8,92330,2025-11-25T11:43:58.292790+00:00,ai,0.7742472,Look artificial,human,general_art,1,False,2025-11-25 11:43:58.292790+00:00
+1340,5663640441de,img_000743,ai,ai,0.91,99162,2025-11-25T11:46:18.875382+00:00,ai,0.57459056,Unemotional,dreamstudio,DreamStudio_pixiv,2,True,2025-11-25 11:46:18.875382+00:00
+1341,5663640441de,img_000144,ai,human,0.92,43735,2025-11-25T11:47:28.624872+00:00,human,0.67960227,Human,midjourney,Midjourney_pixiv,3,False,2025-11-25 11:47:28.624872+00:00
+1344,5663640441de,img_000165,human,ai,0.4,67325,2025-11-25T11:50:54.044672+00:00,human,0.9870171,AI generated,human,renaissance,6,False,2025-11-25 11:50:54.044672+00:00
+1346,5663640441de,img_000289,human,ai,0.7,41245,2025-11-25T11:52:50.142772+00:00,human,0.7064067,AI generated,human,expressionism,8,False,2025-11-25 11:52:50.142772+00:00
+1226,d378b2656699,img_000375,ai,ai,1.0,23947,2025-11-19T20:06:24.659667+00:00,human,0.90490395,"Weird face, weird hands, weird shadows",stable_diffusion,romanticism,5,True,2025-11-19 20:06:24.659667+00:00
+1227,d378b2656699,img_000924,human,human,0.75,27396,2025-11-19T20:06:59.234465+00:00,human,0.8003216,Clear text,human,ukiyo_e,6,True,2025-11-19 20:06:59.234465+00:00
+1228,d378b2656699,img_000875,ai,ai,0.95,48587,2025-11-19T20:07:54.559422+00:00,human,0.8132731,"Lack of clear form in the background, girl on the right is missing legs",starryai,StarryAI_pixiv,7,True,2025-11-19 20:07:54.559422+00:00
+1229,d378b2656699,img_000553,human,human,0.9,85383,2025-11-19T20:09:27.087906+00:00,human,0.98085976,"Faces are clear, hands are clear, there are 12 (the correct number) disciples surrounded who I assume is Jesus.",human,general_art,8,True,2025-11-19 20:09:27.087906+00:00
+1230,d378b2656699,img_000218,human,human,0.2,77614,2025-11-19T20:10:51.685226+00:00,ai,0.8903024,Old paintings have weird proportions so I'm not confident but faces are clear and divine figures have halos whilst other people don't.,human,general_art,9,True,2025-11-19 20:10:51.685226+00:00
+1231,d378b2656699,img_000882,human,human,0.5,55377,2025-11-19T20:11:54.435788+00:00,ai,0.8250186,The hair looks sharp enough to be human,human,general_art,10,True,2025-11-19 20:11:54.435788+00:00
+1232,d5faf2f93d8e,img_000105,human,human,0.29,27533,2025-11-20T18:21:53.373077+00:00,ai,0.73446107,,human,ukiyo_e,1,True,2025-11-20 18:21:53.373077+00:00
+1233,d5faf2f93d8e,img_000079,human,human,0.77,33322,2025-11-20T18:22:37.706505+00:00,ai,0.81014264,I know my anime babes when I see them!,human,illustrations,2,True,2025-11-20 18:22:37.706505+00:00
+1234,d5faf2f93d8e,img_000779,ai,ai,1.0,18440,2025-11-20T18:23:03.985780+00:00,ai,0.52446383,The people are all muddled,stable_diffusion,baroque,3,True,2025-11-20 18:23:03.985780+00:00
+1235,d5faf2f93d8e,img_000661,human,human,0.68,17520,2025-11-20T18:23:29.266959+00:00,human,0.927314,,human,art_nouveau,4,True,2025-11-20 18:23:29.266959+00:00
+1236,d5faf2f93d8e,img_000953,ai,ai,0.83,16538,2025-11-20T18:23:56.807696+00:00,human,0.71434635,Because it's shit,midjourney,Midjourney_art,5,True,2025-11-20 18:23:56.807696+00:00
+1237,d5faf2f93d8e,img_000537,human,human,0.78,54763,2025-11-20T18:24:59.212748+00:00,ai,0.68422264,"Campbell means big chin in Scottish, so I can spot a fellow Campbell",human,general_art,6,True,2025-11-20 18:24:59.212748+00:00
+1238,d5faf2f93d8e,img_000192,human,human,0.1,36147,2025-11-20T18:25:43.054380+00:00,human,0.6415734,I think the faces are too well formed.,human,general_art,7,True,2025-11-20 18:25:43.054380+00:00
+1239,d5faf2f93d8e,img_000313,human,human,0.63,15605,2025-11-20T18:26:06.204124+00:00,human,0.5725904,,human,romanticism,8,True,2025-11-20 18:26:06.204124+00:00
+1240,d5faf2f93d8e,img_000841,ai,ai,0.81,11660,2025-11-20T18:26:25.040865+00:00,ai,0.9253819,Eyes are funky,original_ldm,realism,9,True,2025-11-20 18:26:25.040865+00:00
+1241,d5faf2f93d8e,img_000054,human,human,0.7,11649,2025-11-20T18:26:43.818278+00:00,ai,0.86932755,Because I like it,human,impressionism,10,True,2025-11-20 18:26:43.818278+00:00
+1242,2a4959703e5f,img_000939,human,human,0.67,71125,2025-11-20T22:56:27.048458+00:00,human,0.8862608,,human,general_art,1,True,2025-11-20 22:56:27.048458+00:00
+1243,2a4959703e5f,img_000183,ai,seen,0.5,19979,2025-11-20T22:57:16.285707+00:00,human,0.7698836,Skipped - image seen before,midjourney,Midjourney_pixiv,2,False,2025-11-20 22:57:16.285707+00:00
+1244,2a4959703e5f,img_000062,human,seen,0.5,8903,2025-11-20T22:57:27.252205+00:00,ai,0.96767724,Skipped - image seen before,human,illustrations,3,False,2025-11-20 22:57:27.252205+00:00
+1245,4939ab8835fc,img_000945,human,ai,0.5,85563,2025-11-21T15:16:14.124366+00:00,ai,0.9572004,"Less recognizable art style, lots of blur",human,post_impressionism,1,False,2025-11-21 15:16:14.124366+00:00
+1246,4939ab8835fc,img_000575,human,human,0.77,54747,2025-11-21T15:17:29.965714+00:00,ai,0.9280343,Hands look good,human,general_art,2,True,2025-11-21 15:17:29.965714+00:00
+1247,4939ab8835fc,img_000527,ai,ai,0.75,51115,2025-11-21T15:18:37.157730+00:00,human,0.73569626,"Hands blurred, textures uniform",dalle,DALL-E_art,3,True,2025-11-21 15:18:37.157730+00:00
+1248,4939ab8835fc,img_000230,human,human,0.25,36565,2025-11-21T15:19:35.272283+00:00,ai,0.8371832,Reminds me of work I’ve seen,human,general_art,4,True,2025-11-21 15:19:35.272283+00:00
+1249,4939ab8835fc,img_000102,ai,ai,0.74,18419,2025-11-21T15:20:07.459116+00:00,human,0.90159184,Whimsy,dalle,DALL-E_art,5,True,2025-11-21 15:20:07.459116+00:00
+1250,4939ab8835fc,img_000585,ai,ai,0.67,41319,2025-11-21T15:21:00.021776+00:00,human,0.76814085,Hands,midjourney,Midjourney_art,6,True,2025-11-21 15:21:00.021776+00:00
+1251,4939ab8835fc,img_000866,human,ai,0.13,32996,2025-11-21T15:21:43.931510+00:00,ai,0.80407536,Unique perspective,human,general_art,7,False,2025-11-21 15:21:43.931510+00:00
+1252,4939ab8835fc,img_000211,human,human,0.5,17643,2025-11-21T15:22:13.939583+00:00,human,0.76582056,Familiar,human,general_art,8,True,2025-11-21 15:22:13.939583+00:00
+1253,4939ab8835fc,img_000024,ai,ai,0.5,36887,2025-11-21T15:23:01.362906+00:00,human,0.6116148,,starryai,StarryAI_pixiv,9,True,2025-11-21 15:23:01.362906+00:00
+1254,4939ab8835fc,img_000759,ai,human,0.5,23267,2025-11-21T15:23:35.159052+00:00,human,0.63236064,Too odd,dalle,DALL-E_art,10,False,2025-11-21 15:23:35.159052+00:00
+1255,497f94a5b538,img_000626,human,human,0.5,40173,2025-11-21T16:22:54.703418+00:00,ai,0.8969671,just the style,human,ukiyo_e,1,True,2025-11-21 16:22:54.703418+00:00
+1256,497f94a5b538,img_000833,ai,ai,0.5,30849,2025-11-21T16:23:38.905489+00:00,ai,0.63503605,"quite blurry, colours look off",starryai,StarryAI_art,2,True,2025-11-21 16:23:38.905489+00:00
+1257,497f94a5b538,img_000658,ai,ai,0.5,21267,2025-11-21T16:24:10.904759+00:00,human,0.74420726,lines aren't sharp,original_ldm,ukiyo-e,3,True,2025-11-21 16:24:10.904759+00:00
+1258,497f94a5b538,img_000289,human,ai,0.5,105634,2025-11-21T16:26:04.770178+00:00,ai,0.83459806,pink patch in head....,human,expressionism,4,False,2025-11-21 16:26:04.770178+00:00
+1259,497f94a5b538,img_000292,human,ai,0.5,34278,2025-11-21T16:26:51.130078+00:00,ai,0.8450718,golden lines,human,illustrations,5,False,2025-11-21 16:26:51.130078+00:00
+1260,497f94a5b538,img_000563,human,ai,0.5,42997,2025-11-21T16:27:43.947026+00:00,ai,0.62929434,The bricks in the background,human,renaissance,6,False,2025-11-21 16:27:43.947026+00:00
+1261,e38aa40ca819,img_000405,human,human,0.5,11739,2025-11-22T21:04:29.992186+00:00,ai,0.5458321,,human,illustrations,1,True,2025-11-22 21:04:29.992186+00:00
+1262,749404e37f62,img_000298,ai,human,0.81,146353,2025-11-22T21:11:59.967823+00:00,ai,0.53672653,Clear painting,stable_diffusion,impressionism,1,False,2025-11-22 21:11:59.967823+00:00
+1263,749404e37f62,img_000854,human,human,0.84,68928,2025-11-22T21:13:43.790717+00:00,human,0.84410125,It is  art work,human,ukiyo_e,2,True,2025-11-22 21:13:43.790717+00:00
+1264,749404e37f62,img_000807,human,ai,0.91,26579,2025-11-22T21:14:33.109057+00:00,human,0.8958728,,human,illustrations,3,False,2025-11-22 21:14:33.109057+00:00
+1265,749404e37f62,img_000675,ai,ai,0.78,22413,2025-11-22T21:15:07.533498+00:00,ai,0.84775925,,dreamstudio,DreamStudio_art,4,True,2025-11-22 21:15:07.533498+00:00
+1266,749404e37f62,img_000389,human,ai,0.78,28416,2025-11-22T21:15:47.072821+00:00,human,0.5839269,,human,illustrations,5,False,2025-11-22 21:15:47.072821+00:00
+1267,749404e37f62,img_000694,human,ai,0.79,17718,2025-11-22T21:16:15.643467+00:00,human,0.5184005,,human,surrealism,6,False,2025-11-22 21:16:15.643467+00:00
+1268,749404e37f62,img_000525,ai,human,0.8,14302,2025-11-22T21:16:39.884946+00:00,human,0.597292,,original_ldm,impressionism,7,False,2025-11-22 21:16:39.884946+00:00
+1269,749404e37f62,img_000833,ai,ai,0.79,22861,2025-11-22T21:17:49.190904+00:00,human,0.75197595,,starryai,StarryAI_art,8,True,2025-11-22 21:17:49.190904+00:00
+1342,5663640441de,img_000965,ai,human,1.0,36037,2025-11-25T11:48:31.427675+00:00,human,0.9867214,Human,dalle,DALL-E_art,4,False,2025-11-25 11:48:31.427675+00:00
+1343,5663640441de,img_000704,human,human,0.5,27653,2025-11-25T11:49:23.832631+00:00,ai,0.8271984,Human,human,illustrations,5,True,2025-11-25 11:49:23.832631+00:00
+1345,5663640441de,img_000460,ai,ai,0.93,35318,2025-11-25T11:51:48.777081+00:00,human,0.92108554,AI generated,stable_diffusion,baroque,7,True,2025-11-25 11:51:48.777081+00:00
+1347,5663640441de,img_000174,ai,ai,0.95,48493,2025-11-25T11:53:59.255413+00:00,human,0.7462091,AI generated,stable_diffusion,romanticism,9,True,2025-11-25 11:53:59.255413+00:00

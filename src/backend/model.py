@@ -6,7 +6,6 @@ import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import clip
 import numpy as np
 from typing import Optional, Tuple, Union, Dict, Any
 from sklearn import svm
@@ -58,7 +57,7 @@ class AIImageDetector(nn.Module):
 
     def __init__(
         self,
-        backbone_name: str = "dinov2_vitb14",
+        backbone_name: str = "dinov3_vitb16",
         classifier_type: str = "svm",
         device: Optional[str] = None,
         backbone_kwargs: Optional[Dict] = None,
@@ -542,7 +541,7 @@ class AIImageDetector(nn.Module):
 
 
 # Convenience functions for backward compatibility and easy usage
-def create_detector(backbone_name: str = "clip_vit_b32", **kwargs) -> AIImageDetector:
+def create_detector(backbone_name: str = "dinov2_vitb14", **kwargs) -> AIImageDetector:
     """Create detector with specified backbone"""
     return AIImageDetector(backbone_name=backbone_name, **kwargs)
 
@@ -656,18 +655,6 @@ def compare_backbones():
 # Legacy wrappers for backward compatibility
 # -------------------------------------------------------------------------
 
-class CLIPDetector(AIImageDetector):
-    """Legacy CLIP detector for backward compatibility"""
-    def __init__(self, model_name: str = "ViT-B/32", **kwargs):
-        # Map CLIP model names to backbone names
-        clip_mapping = {
-            "ViT-B/32": "clip_vit_b32",
-            "ViT-B/16": "clip_vit_b16",
-            "ViT-L/14": "clip_vit_l14",
-            "RN50": "clip_rn50"
-        }
-        backbone_name = clip_mapping.get(model_name, "clip_vit_b32")
-        super().__init__(backbone_name=backbone_name, **kwargs)
 
 
 class DINOv2Detector(AIImageDetector):
@@ -676,98 +663,3 @@ class DINOv2Detector(AIImageDetector):
         super().__init__(backbone_name=model_name, **kwargs)
 
 
-class CLIPFeatureExtractor(nn.Module):
-    """Extract features using CLIP vision encoder."""
-    def __init__(
-        self,
-        model_name: str = "ViT-B/32",
-        device: Optional[str] = None,
-        use_penultimate: bool = True,
-        jit: bool = False,  # must be False to allow forward hooks
-    ):
-        """
-        Args:
-            model_name: CLIP model variant ('ViT-B/32', 'ViT-L/14', etc.)
-            device: Device to run on (e.g. 'cuda', 'cuda:0', 'cpu')
-            use_penultimate: Use next-to-last layer features (often better for detection)
-            jit: Set to False so we can register forward hooks
-        """
-        super().__init__()
-
-        self.device = _get_device(device)
-        self.model_name = model_name
-        self.use_penultimate = use_penultimate
-
-        # Load CLIP model (jit=False so hooks work)
-        print(f"Loading CLIP model: {model_name} (jit={jit}) on {self.device}")
-        self.model, self.preprocess = clip.load(model_name, device=str(self.device), jit=jit)
-        self.model.eval()
-
-        self.features = None  # populated by hook when use_penultimate=True
-        if use_penultimate:
-            self._register_hook()
-
-
-
-
-    def _register_hook(self):
-        """Register hook to extract penultimate layer features."""
-        def hook_fn(module, input, output):
-            self.features = output
-
-        # Safety: make sure visual has expected attrs
-        if not hasattr(self.model, "visual"):
-            raise RuntimeError("CLIP model has no .visual module; cannot register hook.")
-
-        if "ViT" in self.model_name:
-            # Vision Transformer
-            blocks = self.model.visual.transformer.resblocks
-            n_layers = len(blocks)
-            if n_layers < 2:
-                raise RuntimeError(f"Expected at least 2 transformer blocks, found {n_layers}.")
-            # hook second-to-last block output
-            blocks[n_layers - 2].register_forward_hook(hook_fn)
-        else:
-            # ResNet backbone: hook last stage (before pooling/proj)
-            if not hasattr(self.model.visual, "layer4"):
-                raise RuntimeError("Expected ResNet-style visual.layer4 to exist.")
-            self.model.visual.layer4.register_forward_hook(hook_fn)
-
-
-
-
-    @torch.no_grad()
-    def forward(self, images: torch.Tensor) -> torch.Tensor:
-        """
-        Extract features from already-preprocessed images tensor (N,3,H,W).
-        Returns a 2D tensor (N, D).
-        """
-        images = images.to(self.device)
-
-        if self.use_penultimate:
-            # reset to avoid stale values
-            self.features = None
-            _ = self.model.encode_image(images)  # triggers hook
-
-            if self.features is None:
-                raise RuntimeError("Penultimate feature hook did not fire; check hook registration.")
-
-            features = self.features
-
-            # shapes:
-            # - ViT block output: (N, seq_len, width) -> mean pool over tokens
-            # - ResNet layer4 output: (N, C, H, W) -> global average pool to (N, C)
-            if features.dim() == 3:
-                features = features.mean(dim=1)  # (N, D)
-            elif features.dim() == 4:
-                features = features.mean(dim=(2, 3))  # GAP -> (N, C)
-            else:
-                raise RuntimeError(f"Unexpected feature dims from hook: {features.shape}")
-        else:
-            # Use CLIP's projected image embeddings (already pooled)
-            features = self.model.encode_image(images)  # (N, D)
-
-        # (optional) L2 normalize for stability across backbones
-        features = torch.nn.functional.normalize(features, dim=1)
-
-        return features.detach().cpu()
