@@ -66,7 +66,7 @@ This project uses DINOv3 models developed by Meta for feature extraction in our 
 
 ## Citations
 
-If you use this work, please also cite DINOv3:
+This work, uses DINOv3:
 
 ```bibtex
 @misc{simeoni2025dinov3,
