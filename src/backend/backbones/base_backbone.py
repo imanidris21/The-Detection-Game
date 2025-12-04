@@ -1,11 +1,19 @@
 """
 backbones/base_backbone.py - Abstract base class for all feature extraction backbones
+
+This basebackbone class has been debugged with the assistance of Claude AI, All suggestions were reviewed critically and modified as needed. 
+
 """
+
+
 
 from abc import ABC, abstractmethod
 from typing import Optional, Tuple, Dict, Any
 import torch
 import torch.nn as nn
+
+
+
 
 
 class BaseBackbone(nn.Module, ABC):
@@ -156,88 +164,3 @@ class BaseBackbone(nn.Module, ABC):
                 f"feature_dim={info['feature_dim']}, "
                 f"device='{info['device']}')")
 
-
-class MultiBackbone(nn.Module):
-    """
-    Wrapper for using multiple backbones together
-    This can be useful for ensemble methods or multimodal approaches
-    """
-    
-    def __init__(self, backbones: Dict[str, BaseBackbone], fusion_method: str = 'concat'):
-        """
-        Args:
-            backbones: Dictionary mapping names to backbone instances
-            fusion_method: How to combine features ('concat', 'add', 'mean', 'max')
-        """
-        super().__init__()
-        self.backbones = nn.ModuleDict(backbones)
-        self.fusion_method = fusion_method
-        
-        # Calculate combined feature dimension
-        if fusion_method == 'concat':
-            self.feature_dim = sum(bb.feature_dim for bb in backbones.values())
-        else:
-            # For other fusion methods, all backbones must have same feature dim
-            feature_dims = [bb.feature_dim for bb in backbones.values()]
-            if len(set(feature_dims)) > 1:
-                raise ValueError(f"All backbones must have same feature_dim for fusion_method='{fusion_method}'")
-            self.feature_dim = feature_dims[0]
-    
-    def forward(self, images: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass through all backbones and fuse features
-        Args:
-            images: Image tensor (N, 3, H, W) 
-        Returns:
-            Fused feature tensor (N, combined_feature_dim)
-        """
-        features = []
-        
-        for name, backbone in self.backbones.items():
-            backbone_features = backbone(images)
-            features.append(backbone_features)
-        
-        # Fuse features
-        if self.fusion_method == 'concat':
-            return torch.cat(features, dim=1)
-        elif self.fusion_method == 'add':
-            return torch.stack(features, dim=0).sum(dim=0)
-        elif self.fusion_method == 'mean':
-            return torch.stack(features, dim=0).mean(dim=0)
-        elif self.fusion_method == 'max':
-            return torch.stack(features, dim=0).max(dim=0)[0]
-        else:
-            raise ValueError(f"Unknown fusion method: {self.fusion_method}")
-    
-    def get_info(self) -> Dict[str, Any]:
-        """Get information about all backbones"""
-        info = {
-            'fusion_method': self.fusion_method,
-            'combined_feature_dim': self.feature_dim,
-            'backbones': {}
-        }
-        
-        for name, backbone in self.backbones.items():
-            info['backbones'][name] = backbone.get_info()
-        
-        return info
-    
-    def freeze_backbone(self, name: str):
-        """Freeze specific backbone"""
-        if name in self.backbones:
-            self.backbones[name].freeze()
-    
-    def unfreeze_backbone(self, name: str):
-        """Unfreeze specific backbone"""
-        if name in self.backbones:
-            self.backbones[name].unfreeze()
-    
-    def freeze_all(self):
-        """Freeze all backbones"""
-        for backbone in self.backbones.values():
-            backbone.freeze()
-    
-    def unfreeze_all(self):
-        """Unfreeze all backbones"""
-        for backbone in self.backbones.values():
-            backbone.unfreeze()

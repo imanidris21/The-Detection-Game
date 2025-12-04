@@ -4,11 +4,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
-
 from backend.utils import init_db, get_engine
 
+# Page configuration
 st.set_page_config(page_title="Leaderboard", layout="wide", initial_sidebar_state="collapsed")
 
+# Initialize database
 init_db()
 engine = get_engine()
 
@@ -188,7 +189,7 @@ with col3:
 
 #     col1, col2, col3 = st.columns([1, 2, 1])
 #     with col2:
-#         if st.button("🎨 Take the Test Now", type="primary", use_container_width=True):
+#         if st.button(" Take the Test Now", type="primary", use_container_width=True):
 #             st.switch_page("pages/1_Take_the_Test.py")
 
 

@@ -6,10 +6,7 @@ import streamlit as st
 from backend.utils import init_db, load_images_meta
 import pkgutil, sys
 
-
-print("HAS_SQLALCHEMY:", pkgutil.find_loader("sqlalchemy") is not None, sys.version)
-
-
+# Page configuration
 st.set_page_config(page_title="The detection Game — Home", layout="wide", initial_sidebar_state="collapsed")
 
 

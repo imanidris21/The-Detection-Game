@@ -1,6 +1,6 @@
 # The Detection Game 
 
-An interactive study comparing human vs AI performance in detecting AI-generated artwork.
+An interactive study comparing human and AI performance in detecting AI-generated artwork.
 
 ## Quick Start
 
@@ -17,25 +17,18 @@ streamlit run src/Home.py
 │   │   ├── config.py      # Configuration settings
 │   │   ├── detector.py    # AI detection model
 │   │   ├── feedback.py    # Progress tracking & analytics
-│   │   ├── prepare_images.py  # Data preprocessing
+│   │   ├── prepare_images.py  # Data preprocessing (to randomize image filenames)
 │   │   └── utils.py       # Database & utility functions
 │   ├── pages/             # Streamlit pages
 │   └── Home.py            # Main application python file
 ├── data/                  # Dataset and metadata
 │   ├── art_testset/       # Processed image dataset (1000 images)
-│   └── results.db         # Research data storage
+│   └── results.db         # Research data storage (for local test, actual data is in neon database)
 ├── scripts/               # Analysis scripts
-├── models/                # Pre-trained AI detection model
+├── models/                # Pre-trained AI detection models
 └── requirements.txt       # Python dependencies
 ```
 
-##  Research Features
-
-- **Human vs AI Testing**: Interactive image classification
-- **Comprehensive Survey**: User background and perception data
-- **Real-time Analytics**: Research dashboard with insights
-- **Secure Dataset**: Balanced AI generators with no filename leakage
-- **Generator Analysis**: Performance by AI model (DALL-E, Midjourney, etc.)
 
 
 ## The testset
@@ -46,7 +39,7 @@ streamlit run src/Home.py
 
 ## Acknowledgments
 
-This project uses DINOv3 models developed by Meta for feature extraction in our AI detection model. 
+This project uses DINOv3 models developed by Meta for feature extraction in our AI detection model. as well as AI-ArtBench Dataset and ARIA. 
 
 ## References
 

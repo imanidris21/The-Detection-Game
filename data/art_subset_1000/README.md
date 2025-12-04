@@ -1,4 +1,4 @@
-# Art Dataset Subset (1000 Images) - Stratified by Style & Generator
+# Art Dataset Subset (1000 Images) - Stratified by Style & Generator (Original)
 
 ## Overview
 This is a curated 1,000-image subset designed for research on human vs. AI detection performance across different art styles and AI generators.

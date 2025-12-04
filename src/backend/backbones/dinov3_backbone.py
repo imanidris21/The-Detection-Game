@@ -3,6 +3,9 @@ backbones/dinov3_backbone.py - DINOv3 backbone implementation
 
 DINOv3 is the latest self-supervised vision transformer from Meta AI,
 trained on 1.7B web images.
+
+This basebackbone class has been debugged with the assistance of Claude AI, All suggestions were reviewed critically and modified as needed. 
+
 """
 
 import torch

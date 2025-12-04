@@ -1,3 +1,6 @@
+#This script prepares the test set by renaming images with secure random filenames, resizing them, and compiling rich metadata into a CSV file.
+
+
 import os
 import uuid
 import random
@@ -5,9 +8,9 @@ from PIL import Image
 import pandas as pd
 
 # CONFIG 
-input_root = "data/art_subset_1000/images"  # where your "real/" and "fake/" folders live
-output_root = "data/art_testset"            # where renamed, resized images will be saved
-target_size = (512, 512)                   # width, height
+input_root = "data/art_subset_1000/images"  # Orignal test set with "real/" and "fake/" folders 
+output_root = "data/art_testset"            # finalized and prepared test set with image renamed and resized with metadata
+target_size = (512, 512)                   # width, height in pixels
 valid_exts = {".jpg", ".jpeg", ".png", ".webp"}  # supported formats
 csv_path = "data/art_testset_metadata.csv"
 source_metadata = "data/art_subset_1000/metadata.csv"
@@ -15,7 +18,7 @@ source_metadata = "data/art_subset_1000/metadata.csv"
 #  SETUP 
 os.makedirs(output_root, exist_ok=True)
 
-# Load source metadata to get rich information
+# Load source metadata 
 print(f"Loading source metadata from {source_metadata}")
 if os.path.exists(source_metadata):
     source_meta_df = pd.read_csv(source_metadata)

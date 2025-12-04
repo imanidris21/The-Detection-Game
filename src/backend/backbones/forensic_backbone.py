@@ -15,6 +15,7 @@ class SRMLayer(nn.Module):
     """
     Spatial Rich Model (SRM) layer with pre-defined high-pass filters
     Contains 32 different SRM kernels for detecting various artifacts
+    This class has been written with the assistance of Claude code AI. All suggestions were reviewed critically and modified as needed.
     """
 
     def __init__(self):
@@ -164,6 +165,7 @@ class DCTBlock(nn.Module):
     """
     DCT block processing for detecting compression artifacts
     Extracts DCT coefficients from 8x8 blocks similar to JPEG compression
+    This class has been written with the assistance of Claude code AI. All suggestions were reviewed critically and modified as needed.
     """
 
     def __init__(self, block_size: int = 8):
@@ -194,6 +196,7 @@ class DCTBlock(nn.Module):
             x: Input tensor (B, C, H, W)
         Returns:
             DCT coefficients (B, C*64, H//8, W//8)
+        
         """
         batch_size, channels, height, width = x.shape
         block_size = self.block_size

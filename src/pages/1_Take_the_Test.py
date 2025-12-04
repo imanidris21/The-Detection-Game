@@ -12,7 +12,7 @@ from backend.detector import get_detector
 from backend.model_downloader import ensure_neural_detector_model
 
 
-# Performance optimization: Cache detector globally to avoid reloading for each prediction
+# Performance optimization: Cache detector globally to avoid reloading for each prediction and help speed up the experience
 @st.cache_resource
 def get_global_detector():
     """Load the AI detector once and cache it for all users"""
@@ -301,6 +301,8 @@ elif st.session_state.test_stage == "pre_survey":
 # STEP 3: TEST (10 IMAGES)
 # =====================================================
 
+# some of the fucntion in this section were debugged and improved with the assistance of Claude code AI. all suggestions were reviewed critically and modified as needed.
+
 elif st.session_state.test_stage == "test":
     # Build trial order if missing
     if not st.session_state.trial_order:
@@ -324,7 +326,7 @@ elif st.session_state.test_stage == "test":
     meta = images_meta.set_index("image_id").loc[image_id]
     img_path = os.path.join(IMAGES_DIR, meta["image_filename"])
 
-    # Get AI detector prediction with cached model (optimized)
+    # Get AI detector prediction with cached model (optimized way)
     detector_result = get_global_detector().predict(img_path)
     cleanup_memory()
 
@@ -502,7 +504,7 @@ elif st.session_state.test_stage == "test":
             st.error("Image load error")
             st.stop()
 
-        # Skip option under the image - automatically skip when checked
+        # the "Skip" option under the image - automatically skip when checked
         # Use unique key for each image to prevent state persistence
         skip_key = f"skip_{image_id}"
         seen_before = st.checkbox("I've seen this image before, skip it please", key=skip_key)

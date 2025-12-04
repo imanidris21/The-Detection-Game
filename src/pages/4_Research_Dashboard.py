@@ -1,5 +1,9 @@
 # pages/4_Research_Dashboard.py
 
+# The data analysis in the research dashboard is not the actual analysis but rather a data display that helped a lot during the launch phase.
+# A clean and legit data analysis is in Data_Analysis.ipynb and model_data_analysis.ipynb 
+
+# Some of the code in this script is generated with the assistance of Claude code AI. all suggestions were reviewed critically and modified as needed. 
 
 import streamlit as st
 import pandas as pd
@@ -9,9 +13,9 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import sqlite3
 from datetime import datetime, timedelta
-
 from backend.utils import init_db, get_engine, load_images_meta, load_detector_preds
 
+# Page configuration
 st.set_page_config(page_title="Scientific Dashboard", layout="wide", initial_sidebar_state="collapsed")
 
 # PASSWORD PROTECTION
