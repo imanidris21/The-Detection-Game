@@ -82,3 +82,8 @@ This work, uses DINOv3:
   url={https://arxiv.org/abs/2508.10104},
 }
 ```
+
+
+
+## LLM Disclaimer 
+LLM models (Claude Code and ChatGPT) were used in this project to assist with writing, debugging, and explaining code. All outputs were critically reviewed, modified and adapted. In-line comments will be provided within the source code where big changes has been made to explain exactly how it's been used.
