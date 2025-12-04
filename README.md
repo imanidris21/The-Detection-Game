@@ -5,6 +5,8 @@ An interactive study comparing human and AI performance in detecting AI-generate
 
 ## Project links:
 
+-  Platform demo: https://the-detection-game.streamlit.app/
+    
 - Project Assets: Models, demo video, Art dataset and test set:  https://artslondon-my.sharepoint.com/:f:/g/personal/i_ahmed0220221_arts_ac_uk/IgB7Jqq2gNp0SL7IoLt0ll0zAenarHKW8JcxjK1GOL5V8jo?e=oEyX9X 
 
 - AI Art Detector: https://git.arts.ac.uk/22004642/AI-Art-Detector
