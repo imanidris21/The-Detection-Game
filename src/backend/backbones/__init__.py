@@ -2,7 +2,7 @@
 Backbones module for AI detection model
 """
 
-from .base_backbone import BaseBackbone, MultiBackbone
+from .base_backbone import BaseBackbone
 from .dinov3_backbone import DINOv3Backbone
 from .forensic_backbone import ForensicBackbone
 
@@ -54,7 +54,6 @@ backbone_manager = BackboneManager()
 
 __all__ = [
     'BaseBackbone',
-    'MultiBackbone',
     'DINOv3Backbone',
     'ForensicBackbone',
     'create_backbone',
