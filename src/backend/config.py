@@ -34,7 +34,7 @@ class Config:
     IS_LOCAL_DEV = not IS_STREAMLIT_CLOUD
 
     # Experiment settings
-    NUM_TRIALS = int(os.getenv("NUM_TRIALS", "10"))
+    NUM_TRIALS = int(os.getenv("NUM_TRIALS", "5"))
 
     # Data files
     IMAGES_CSV = DATA_DIR / "art_testset_metadata.csv"

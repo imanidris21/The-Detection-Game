@@ -45,7 +45,7 @@ st.set_page_config(page_title="Take the Test", layout="wide", initial_sidebar_st
 
 # Show progress in navbar if test is started
 progress_text = ""
-if st.session_state.get("trial_order") and st.session_state.get("consented"):
+if st.session_state.get("trial_order"):
     idx = st.session_state.get("trial_index", 0)
     total = len(st.session_state.trial_order)
     progress_text = show_test_progress(idx + 1, total)
@@ -60,16 +60,14 @@ detector_preds = load_detector_preds()
 # This runs once when the app starts, not per user session
 _ = get_global_detector()
 
-# Only show main title during consent and test stages
-if st.session_state.get("test_stage") in ["consent", "test"]:
+# Show main title during test stage
+if st.session_state.get("test_stage") == "test":
     st.title("The Detection Game: Can You Spot AI-Generated Art?")
 
 
-# Session state for new streamlined flow
+# Session state for exhibition version (simplified flow)
 if "test_stage" not in st.session_state:
-    st.session_state.test_stage = "consent"  # consent -> pre_survey -> test -> post_survey -> results
-if "consented" not in st.session_state:
-    st.session_state.consented = False
+    st.session_state.test_stage = "test"  # Direct to test -> results (exhibition version)
 if "participant_id" not in st.session_state:
     st.session_state.participant_id = None
 if "trial_order" not in st.session_state:
@@ -84,8 +82,6 @@ if "show_feedback" not in st.session_state:
     st.session_state.show_feedback = False
 if "last_feedback_data" not in st.session_state:
     st.session_state.last_feedback_data = None
-if "survey_completed" not in st.session_state:
-    st.session_state.survey_completed = False
 
 
 
@@ -93,145 +89,145 @@ if "survey_completed" not in st.session_state:
 # STEP 1: CONSENT FORM
 # =====================================================
 
-if st.session_state.test_stage == "consent":
-    # CSS for consent form styling
-    st.markdown("""
-    <style>
-    .consent-container {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        border: 1px solid #e0e0e0;
-    }
-    .consent-header {
-        text-align: center;
-        color: #2c3e50;
-        margin-bottom: 2rem;
-    }
-    .consent-section {
-        margin-bottom: 1.5rem;
-    }
-    .consent-section h3 {
-        color: #34495e;
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 0.3rem;
-    }
-    .consent-section p, .consent-section ul {
-        color: #555;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-    }
-    .consent-section ul {
-        padding-left: 1.5rem;
-    }
-    .consent-checkbox {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 2px solid #3498db;
-        margin: 1.5rem 0;
-    }
+# if st.session_state.test_stage == "consent":
+#     # CSS for consent form styling
+#     st.markdown("""
+#     <style>
+#     .consent-container {
+#         max-width: 800px;
+#         margin: 2rem auto;
+#         padding: 2rem;
+#         background: white;
+#         border-radius: 15px;
+#         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+#         border: 1px solid #e0e0e0;
+#     }
+#     .consent-header {
+#         text-align: center;
+#         color: #2c3e50;
+#         margin-bottom: 2rem;
+#     }
+#     .consent-section {
+#         margin-bottom: 1.5rem;
+#     }
+#     .consent-section h3 {
+#         color: #34495e;
+#         font-size: 1.2rem;
+#         margin-bottom: 0.5rem;
+#         border-bottom: 2px solid #3498db;
+#         padding-bottom: 0.3rem;
+#     }
+#     .consent-section p, .consent-section ul {
+#         color: #555;
+#         line-height: 1.6;
+#         margin-bottom: 1rem;
+#     }
+#     .consent-section ul {
+#         padding-left: 1.5rem;
+#     }
+#     .consent-checkbox {
+#         background: #f8f9fa;
+#         padding: 1rem;
+#         border-radius: 8px;
+#         border: 2px solid #3498db;
+#         margin: 1.5rem 0;
+#     }
 
-    /* Remove form container border */
-    .stForm {
-        border: none !important;
-        padding: 0 !important;
-    }
+#     /* Remove form container border */
+#     .stForm {
+#         border: none !important;
+#         padding: 0 !important;
+#     }
 
-    .stForm > div {
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+#     .stForm > div {
+#         border: none !important;
+#         box-shadow: none !important;
+#         padding: 0 !important;
+#     }
+#     </style>
+#     """, unsafe_allow_html=True)
 
-    st.title("Consent form")
-    # st.subheader("Consent form")
-    st.markdown("Consent is required. Your responses are anonymous.")
-    st.markdown("---")
+#     st.title("Consent form")
+#     # st.subheader("Consent form")
+#     st.markdown("Consent is required. Your responses are anonymous.")
+#     st.markdown("---")
 
-    # Purpose
-    st.subheader("Purpose")
-    st.write("You are invited to participate in a research study comparing how humans and AI systems detect artificially generated digital artworks.")
+#     # Purpose
+#     st.subheader("Purpose")
+#     st.write("You are invited to participate in a research study comparing how humans and AI systems detect artificially generated digital artworks.")
 
-    # why you
-    st.subheader("Why have you been approached?")
-    st.write("You have an interest in art, creativity, and/or AI, and we are recruiting both artists and members of the public to take part. Your input will help us understand how humans perform compared to machine learning detectors.")
+#     # why you
+#     st.subheader("Why have you been approached?")
+#     st.write("You have an interest in art, creativity, and/or AI, and we are recruiting both artists and members of the public to take part. Your input will help us understand how humans perform compared to machine learning detectors.")
 
-    # What You'll Do
-    st.subheader("If I agree to participate, what will I be required to do?")
-    st.write("- View a series of images (a mix of human-created and AI-generated artworks).")
-    st.write("- Decide if each is human-made or AI-generated")
-    st.write("- Rate your confidence in each decision and explain your reasoning")
-    st.write("- Complete a brief post-test survey")
-    st.write("- Takes approximately 5-10 minutes")
+#     # What You'll Do
+#     st.subheader("If I agree to participate, what will I be required to do?")
+#     st.write("- View a series of images (a mix of human-created and AI-generated artworks).")
+#     st.write("- Decide if each is human-made or AI-generated")
+#     st.write("- Rate your confidence in each decision and explain your reasoning")
+#     st.write("- Complete a brief post-test survey")
+#     st.write("- Takes approximately 5-10 minutes")
 
-    # risks
-    st.subheader("What are the possible risks or disadvantages?")
-    st.write("You may feel frustrated if you misclassify images, but please note mistakes are expected and part of the study.")
-
-
-    # Your Data
-    st.subheader("Your Data")
-    st.write("- Responses are anonymous and stored securely on UAL-managed systems.(no names or emails collected)")
-    st.write("- We record: your decisions, confidence levels, reasoning behind the decisions, response times, and survey answers")
-    st.write("- Data will be used for academic research and may be published")
-    st.write("- You can withdraw at any time by closing the browser")
+#     # risks
+#     st.subheader("What are the possible risks or disadvantages?")
+#     st.write("You may feel frustrated if you misclassify images, but please note mistakes are expected and part of the study.")
 
 
-
-
-    # Your rights as a participant?
-    st.subheader("Your rights as a participant?")
-    st.write("- The right to withdraw from participation at any time during the game")
-    st.write("- The right to request that any recording cease")
-    st.write("- Due to the anonymization of the data upon task completion, it will not be possible to withdraw your data after submission.")
+#     # Your Data
+#     st.subheader("Your Data")
+#     st.write("- Responses are anonymous and stored securely on UAL-managed systems.(no names or emails collected)")
+#     st.write("- We record: your decisions, confidence levels, reasoning behind the decisions, response times, and survey answers")
+#     st.write("- Data will be used for academic research and may be published")
+#     st.write("- You can withdraw at any time by closing the browser")
 
 
 
-    # Privacy
-    st.subheader("Privacy Notice")
-    st.write("Your personal data will be processed by UAL on its managed systems for research purposes with your explicit consent. Your personal data will be anonymised and deleted on your request. You can find more information about UAL and your privacy rights at www.arts.ac.uk/privacy-information.")
+
+#     # Your rights as a participant?
+#     st.subheader("Your rights as a participant?")
+#     st.write("- The right to withdraw from participation at any time during the game")
+#     st.write("- The right to request that any recording cease")
+#     st.write("- Due to the anonymization of the data upon task completion, it will not be possible to withdraw your data after submission.")
 
 
-    # Consent
-    st.subheader("Consent")
-    st.write("By clicking 'I Agree' below, you confirm:")
-    st.write("(a) I understand that my participation is voluntary and that I am free to withdraw from the project at any time during the game")
-    st.write("(b) The project is for the purpose of research. It may not be of direct benefit to me.")
-    st.write("(c) The security of the research data will be protected during and after completion of the study.  The data collected during the study may be published. Any information which will identify me will not be used.")
 
-    st.markdown("---")
+#     # Privacy
+#     st.subheader("Privacy Notice")
+#     st.write("Your personal data will be processed by UAL on its managed systems for research purposes with your explicit consent. Your personal data will be anonymised and deleted on your request. You can find more information about UAL and your privacy rights at www.arts.ac.uk/privacy-information.")
 
-    # Consent checkbox outside the form so it can control button state
-    consent_agreed = st.checkbox("✓ I agree to participate in this study",
-                               help="You must agree to participate to continue")
 
-    # Consent form inputs
-    with st.form("consent_form"):
-        # Consent form - no additional data collection needed
+#     # Consent
+#     st.subheader("Consent")
+#     st.write("By clicking 'I Agree' below, you confirm:")
+#     st.write("(a) I understand that my participation is voluntary and that I am free to withdraw from the project at any time during the game")
+#     st.write("(b) The project is for the purpose of research. It may not be of direct benefit to me.")
+#     st.write("(c) The security of the research data will be protected during and after completion of the study.  The data collected during the study may be published. Any information which will identify me will not be used.")
 
-        # Submit button
-        st.markdown(" ")
-        submitted = st.form_submit_button("Start the Game!", type="primary", disabled=not consent_agreed)
+#     st.markdown("---")
 
-        if submitted and consent_agreed:
-            st.session_state.consented = True
-            st.session_state.test_stage = "pre_survey"
-            pid = make_pid()
-            st.session_state.participant_id = pid
-            # No additional info collected at consent stage
-            register_participant(engine, pid, st.session_state.participant_info)
-            st.rerun()
-        elif submitted and not consent_agreed:
-            st.error("Please agree to participate by checking the consent box above.")
-    st.stop()
+#     # Consent checkbox outside the form so it can control button state
+#     consent_agreed = st.checkbox("✓ I agree to participate in this study",
+#                                help="You must agree to participate to continue")
+
+#     # Consent form inputs
+#     with st.form("consent_form"):
+#         # Consent form - no additional data collection needed
+
+#         # Submit button
+#         st.markdown(" ")
+#         submitted = st.form_submit_button("Start the Game!", type="primary", disabled=not consent_agreed)
+
+#         if submitted and consent_agreed:
+#             st.session_state.consented = True
+#             st.session_state.test_stage = "pre_survey"
+#             pid = make_pid()
+#             st.session_state.participant_id = pid
+#             # No additional info collected at consent stage
+#             register_participant(engine, pid, st.session_state.participant_info)
+#             st.rerun()
+#         elif submitted and not consent_agreed:
+#             st.error("Please agree to participate by checking the consent box above.")
+#     st.stop()
 
 
 
@@ -240,59 +236,59 @@ if st.session_state.test_stage == "consent":
 # STEP 2: PRE-TEST SURVEY
 # =====================================================
 
-elif st.session_state.test_stage == "pre_survey":
-    st.title("Before We Begin")
-    st.write("Can you answer these two quick questions please.")
+# elif st.session_state.test_stage == "pre_survey":
+#     st.title("Before We Begin")
+#     st.write("Can you answer these two quick questions please.")
 
-    with st.form("pre_test_survey"):
-        st.subheader("Pre-Test Questions")
+#     with st.form("pre_test_survey"):
+#         st.subheader("Pre-Test Questions")
 
-        # Question 1: Confidence
-        confidence = st.radio(
-            "How confident are you in identifying AI-generated art?",
-            [
-                "Very confident - I can usually tell immediately",
-                "Somewhat confident",
-                "Not very confident",
-                "Not confident at all - I can rarely tell"
-            ],
-            index=None
-        )
+#         # Question 1: Confidence
+#         confidence = st.radio(
+#             "How confident are you in identifying AI-generated art?",
+#             [
+#                 "Very confident - I can usually tell immediately",
+#                 "Somewhat confident",
+#                 "Not very confident",
+#                 "Not confident at all - I can rarely tell"
+#             ],
+#             index=None
+#         )
 
-        st.markdown("")  # Add some spacing
+#         st.markdown("")  # Add some spacing
 
-        # Question 2: Training
-        training = st.radio(
-            "Have you had any training in detecting AI-generated content?",
-            [
-                "Yes, formal training",
-                "Yes, informal (videos, articles, social media)",
-                "No"
-            ],
-            index=None
-        )
+#         # Question 2: Training
+#         training = st.radio(
+#             "Have you had any training in detecting AI-generated content?",
+#             [
+#                 "Yes, formal training",
+#                 "Yes, informal (videos, articles, social media)",
+#                 "No"
+#             ],
+#             index=None
+#         )
 
-        submitted = st.form_submit_button("Start the Test!", type="primary")
+#         submitted = st.form_submit_button("Start the Test!", type="primary")
 
-        if submitted:
-            # Validate that both questions are answered
-            if confidence is None:
-                st.error("Please select your confidence level for identifying AI-generated art.")
-            elif training is None:
-                st.error("Please select whether you have had training in detecting AI-generated content.")
-            else:
-                # Save pre-test data
-                pre_survey_data = {
-                    "pre_confidence": confidence,
-                    "pre_training": training
-                }
-                st.session_state.participant_info.update(pre_survey_data)
-                register_participant(engine, st.session_state.participant_id, st.session_state.participant_info)
+#         if submitted:
+#             # Validate that both questions are answered
+#             if confidence is None:
+#                 st.error("Please select your confidence level for identifying AI-generated art.")
+#             elif training is None:
+#                 st.error("Please select whether you have had training in detecting AI-generated content.")
+#             else:
+#                 # Save pre-test data
+#                 pre_survey_data = {
+#                     "pre_confidence": confidence,
+#                     "pre_training": training
+#                 }
+#                 st.session_state.participant_info.update(pre_survey_data)
+#                 register_participant(engine, st.session_state.participant_id, st.session_state.participant_info)
 
-                st.session_state.test_stage = "test"
-                st.rerun()
+#                 st.session_state.test_stage = "test"
+#                 st.rerun()
 
-    st.stop()
+#     st.stop()
 
 
 
@@ -304,6 +300,12 @@ elif st.session_state.test_stage == "pre_survey":
 # some of the fucntion in this section were debugged and improved with the assistance of Claude code AI. all suggestions were reviewed critically and modified as needed.
 
 elif st.session_state.test_stage == "test":
+    # Create participant ID if not exists
+    if st.session_state.participant_id is None:
+        pid = make_pid()
+        st.session_state.participant_id = pid
+        register_participant(engine, pid, st.session_state.participant_info)
+
     # Build trial order if missing
     if not st.session_state.trial_order:
         if images_meta.empty:
@@ -317,7 +319,7 @@ elif st.session_state.test_stage == "test":
 
     # Check if test is finished
     if st.session_state.trial_index >= len(st.session_state.trial_order):
-        st.session_state.test_stage = "survey"
+        st.session_state.test_stage = "results"
         st.rerun()
 
     # Show trial
@@ -634,10 +636,11 @@ elif st.session_state.test_stage == "test":
 
 
 # =====================================================
-# STAGE 3: POST-TEST SURVEY
+# STAGE 3: POST-TEST SURVEY (REMOVED FOR EXHIBITION VERSION)
 # =====================================================
 
-
+# Survey section commented out for exhibition version
+"""
 elif st.session_state.test_stage == "survey":
     st.title("Post-Test Survey")
     st.write("Thank you for completing the test! Please answer a few questions about your experience.")
@@ -890,6 +893,7 @@ elif st.session_state.test_stage == "survey":
                 st.rerun()
 
     st.stop()
+"""
 
 
 
@@ -897,22 +901,16 @@ elif st.session_state.test_stage == "survey":
 # STEP 4: RESULTS
 # =====================================================
 
-elif st.session_state.test_stage == "results":
-    st.title("Thank You for Participating!")
+if st.session_state.test_stage == "results":
+    st.title("Game Complete! 🎯")
 
     # Mark participant as finished
     mark_finished(engine, st.session_state.participant_id)
 
-    st.subheader("Here are Your Results")
+    st.subheader("Your Performance")
 
     # Show detailed progress summary
     show_progress_summary(engine, st.session_state.participant_id, len(st.session_state.trial_order))
-
-    st.markdown("---")
-
-    # Contact information section
-    st.subheader("Want to Learn More?")
-    st.write("If you want to know more about this research, please email **imanidris21@gmail.com**")
 
     st.markdown("---")
 
