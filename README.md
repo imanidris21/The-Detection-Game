@@ -2,6 +2,18 @@
 
 An interactive study comparing human and AI performance in detecting AI-generated artwork.
 
+
+## Project links:
+
+-  Platform demo: https://the-detection-game.streamlit.app/
+    
+- Project Assets: Models, demo video, Art dataset and test set:  https://artslondon-my.sharepoint.com/:f:/g/personal/i_ahmed0220221_arts_ac_uk/IgB7Jqq2gNp0SL7IoLt0ll0zAenarHKW8JcxjK1GOL5V8jo?e=oEyX9X 
+
+- AI Art Detector: https://git.arts.ac.uk/22004642/AI-Art-Detector
+
+- Merged Art Dataset repo: https://git.arts.ac.uk/22004642/AI-Art-dataset
+
+
 ## Quick Start
 
 ```bash
@@ -72,3 +84,8 @@ This work, uses DINOv3:
   url={https://arxiv.org/abs/2508.10104},
 }
 ```
+
+
+
+## LLM Disclaimer 
+LLM models (Claude Code and ChatGPT) were used in this project to assist with writing, debugging, and explaining code. All outputs were critically reviewed, modified and adapted. In-line comments will be provided within the source code where big changes has been made to explain exactly how it's been used.
