@@ -19,7 +19,7 @@ def get_base64_of_image(image_path):
 init_db()
 
 # Main content: title and subheading
-st.markdown("<h1 style='text-align: center;'>Human or Machine?</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 4rem;'>Human or Machine?</h1>", unsafe_allow_html=True)
 
 st.markdown("""
 <div style='text-align: center; max-width: 800px; margin: 0 auto; padding: 0 2rem;'>
@@ -28,43 +28,37 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Get base64 image
+bg_image = get_base64_of_image("src/assets/home_bg.jpg")
+
 # Simple styling
-st.markdown("""
+st.markdown(f"""
 <style>
 
 /* Background image */
-.stApp {
-    background-image: url("data:image/jpeg;base64,""" + get_base64_of_image("src/assets/home_bg.jpg") + """);
+.stApp {{
+    background-image: url("data:image/jpeg;base64,{bg_image}");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-}
-
-/* Add overlay for better text readability */
-.main .block-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    border-radius: 15px;
-    padding: 2rem;
-    margin-top: 2rem;
-    backdrop-filter: blur(5px);
-}
+}}
 
 /* Force headings to be centered on all viewports */
 div.block-container h1,
-div.block-container h3 {
+div.block-container h3 {{
     text-align: center !important;
-}
+}}
 
 
 
 /* Button styling */
-.stButton {
+.stButton {{
     display: flex !important;
     justify-content: center !important;
     margin-top: 2rem !important;
-}
-.stButton > button {
+}}
+.stButton > button {{
     background-color: white !important;
     color: #262730 !important;
     border: 1px solid #d3d3d3 !important;
@@ -72,17 +66,17 @@ div.block-container h3 {
     border-radius: 8px !important;
     font-weight: 600 !important;
     font-size: 1rem !important;
-}
-.stButton > button:hover {
+}}
+.stButton > button:hover {{
     background-color: #ff4b4b !important;
     color: white !important;
     border: 1px solid #ff4b4b !important;
-}
+}}
 
 /* Center align text in columns */
-.stColumn {
+.stColumn {{
     text-align: center !important;
-}   
+}}   
 
 </style>
 """, unsafe_allow_html=True)
