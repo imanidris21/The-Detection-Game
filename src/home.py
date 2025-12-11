@@ -5,10 +5,15 @@
 import streamlit as st
 from backend.utils import init_db, load_images_meta
 import pkgutil, sys
+import base64
 
 # Page configuration
 st.set_page_config(page_title="The detection Game — Home", layout="wide", initial_sidebar_state="collapsed")
 
+# Function to convert image to base64
+def get_base64_of_image(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
 
 # Initialize database and load data
 init_db()
@@ -26,7 +31,25 @@ st.markdown("""
 # Simple styling
 st.markdown("""
 <style>
-            
+
+/* Background image */
+.stApp {
+    background-image: url("data:image/jpeg;base64,""" + get_base64_of_image("src/assets/home_bg.jpg") + """);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Add overlay for better text readability */
+.main .block-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-top: 2rem;
+    backdrop-filter: blur(5px);
+}
+
 /* Force headings to be centered on all viewports */
 div.block-container h1,
 div.block-container h3 {
