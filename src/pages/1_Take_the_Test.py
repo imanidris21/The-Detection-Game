@@ -67,11 +67,11 @@ if st.session_state.get("test_stage") in ["consent", "test"]:
 
 # Session state for new streamlined flow
 if "test_stage" not in st.session_state:
-    st.session_state.test_stage = "consent"  # consent -> pre_survey -> test -> post_survey -> results
+    st.session_state.test_stage = "test"  # TEMP: Skip directly to test (was: "consent")
 if "consented" not in st.session_state:
-    st.session_state.consented = False
+    st.session_state.consented = True  # TEMP: Auto-consent for testing
 if "participant_id" not in st.session_state:
-    st.session_state.participant_id = None
+    st.session_state.participant_id = make_pid()  # TEMP: Auto-generate participant ID
 if "trial_order" not in st.session_state:
     st.session_state.trial_order = []
 if "trial_index" not in st.session_state:
@@ -90,10 +90,11 @@ if "survey_completed" not in st.session_state:
 
 
 # =====================================================
-# STEP 1: CONSENT FORM
+# STEP 1: CONSENT FORM - TEMPORARILY COMMENTED OUT
 # =====================================================
 
-if st.session_state.test_stage == "consent":
+# TEMP: Commenting out consent form for testing
+if False and st.session_state.test_stage == "consent":
     # CSS for consent form styling
     st.markdown("""
     <style>
@@ -237,10 +238,11 @@ if st.session_state.test_stage == "consent":
 
 
 # =====================================================
-# STEP 2: PRE-TEST SURVEY
+# STEP 2: PRE-TEST SURVEY - TEMPORARILY COMMENTED OUT
 # =====================================================
 
-elif st.session_state.test_stage == "pre_survey":
+# TEMP: Commenting out pre-test survey for testing
+elif False and st.session_state.test_stage == "pre_survey":
     st.title("Before We Begin")
     st.write("Can you answer these two quick questions please.")
 
@@ -317,7 +319,7 @@ elif st.session_state.test_stage == "test":
 
     # Check if test is finished
     if st.session_state.trial_index >= len(st.session_state.trial_order):
-        st.session_state.test_stage = "survey"
+        st.session_state.test_stage = "results"  # TEMP: Skip to results (was: "survey")
         st.rerun()
 
     # Show trial
@@ -433,7 +435,7 @@ elif st.session_state.test_stage == "test":
 
             try:
                 pil = Image.open(img_path)
-                st.image(pil, width=450)
+                st.image(pil, width=600)
             except Exception as e:
                 st.error("Image load error")
 
@@ -499,7 +501,7 @@ elif st.session_state.test_stage == "test":
 
         try:
             pil = Image.open(img_path)
-            st.image(pil, width=450)
+            st.image(pil, width=600)
         except Exception as e:
             st.error("Image load error")
             st.stop()
@@ -634,11 +636,11 @@ elif st.session_state.test_stage == "test":
 
 
 # =====================================================
-# STAGE 3: POST-TEST SURVEY
+# STAGE 3: POST-TEST SURVEY - TEMPORARILY COMMENTED OUT
 # =====================================================
 
-
-elif st.session_state.test_stage == "survey":
+# TEMP: Commenting out post-test survey for testing
+elif False and st.session_state.test_stage == "survey":
     st.title("Post-Test Survey")
     st.write("Thank you for completing the test! Please answer a few questions about your experience.")
 
