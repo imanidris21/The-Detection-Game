@@ -447,7 +447,7 @@ elif st.session_state.test_stage == "test":
 
             try:
                 pil = Image.open(img_path)
-                st.image(pil, width=600)
+                st.image(pil, width=700)
             except Exception as e:
                 st.error("Image load error")
 
@@ -513,7 +513,7 @@ elif st.session_state.test_stage == "test":
 
         try:
             pil = Image.open(img_path)
-            st.image(pil, width=600)
+            st.image(pil, width=700)
         except Exception as e:
             st.error("Image load error")
             st.stop()
