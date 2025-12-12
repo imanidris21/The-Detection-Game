@@ -19,7 +19,7 @@ def get_base64_of_image(image_path):
 init_db()
 
 # Main content: title and subheading
-st.markdown("<h1 style='text-align: center; font-size: 7rem;'>Human or Machine?</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 7rem; margin-top: 4rem;'>Human or Machine?</h1>", unsafe_allow_html=True)
 
 st.markdown("""
 <div style='text-align: center; max-width: 1000px; margin: 0 auto; padding: 0 2rem;'>
