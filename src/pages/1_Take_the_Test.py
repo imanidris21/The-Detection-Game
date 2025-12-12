@@ -335,12 +335,16 @@ elif st.session_state.test_stage == "test":
     # Add custom CSS for compact viewport layout
     st.markdown("""
     <style>
+    /* Add left and right margins to the entire app */
+    .stApp .main {
+        margin-left: 60px !important;
+        margin-right: 60px !important;
+    }
+
     /* Make the main container more compact */
     .main .block-container {
         padding-top: 2rem !important;
         padding-bottom: 1rem !important;
-        padding-left: 60px !important;
-        padding-right: 60px !important;
         max-width: 100% !important;
     }
 
