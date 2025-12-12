@@ -23,7 +23,7 @@ st.markdown("<h1 style='text-align: center; font-size: 7rem;'>Human or Machine?<
 
 st.markdown("""
 <div style='text-align: center; max-width: 800px; margin: 0 auto; padding: 0 2rem;'>
-<h3 style='font-size: 2rem;'>Do you think you can spot the AI-generated artworks and beat our AI Detector</h3>
+<h3 style='font-size: 3rem;'>Do you think you can spot the AI-generated artworks and beat our AI Detector</h3>
 
 </div>
 """, unsafe_allow_html=True)
