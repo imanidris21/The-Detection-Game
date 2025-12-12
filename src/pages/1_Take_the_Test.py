@@ -339,6 +339,8 @@ elif st.session_state.test_stage == "test":
     .main .block-container {
         padding-top: 2rem !important;
         padding-bottom: 1rem !important;
+        padding-left: 60px !important;
+        padding-right: 60px !important;
         max-width: 100% !important;
     }
 
