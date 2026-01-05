@@ -19,11 +19,11 @@ def get_base64_of_image(image_path):
 init_db()
 
 # Main content: title and subheading
-st.markdown("<h1 style='text-align: center; font-size: 3 rem; margin-top: 4rem;'>Human or Machine?</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; font-size: 5rem; margin-top: 4rem;'>Human or Machine?</h1>", unsafe_allow_html=True)
 
 st.markdown("""
-<div style='text-align: center; max-width: 1000px; margin: 0 auto; padding: 0 1 rem;'>
-<h3 style='font-size: 3rem;'>Do you think you can spot the AI-generated artworks and beat our AI Detector</h3>
+<div style='text-align: center; max-width: 1000px; margin: 0 auto; padding: 0 1rem;'>
+<h3 style='font-size: 2.5rem;'>Do you think you can spot the AI-generated artworks and beat our AI Detector</h3>
 
 </div>
 """, unsafe_allow_html=True)
