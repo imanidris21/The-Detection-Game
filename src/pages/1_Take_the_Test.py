@@ -337,15 +337,15 @@ elif st.session_state.test_stage == "test":
     <style>
     /* Add left and right margins to the page */
     .stApp > div:first-child {
-        margin-left: 30px !important;
+        margin-left: 10px !important;
         margin-right: 30px !important;
     }
 
     /* Alternative: target the block container with margins */
     .block-container {
-        margin-left: 30px !important;
+        margin-left: 10px !important;
         margin-right: 30px !important;
-        max-width: calc(100% - 120px) !important;
+        max-width: calc(100% - 80px) !important;
     }
 
     /* Make the main container more compact */
