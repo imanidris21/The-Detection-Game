@@ -337,14 +337,14 @@ elif st.session_state.test_stage == "test":
     <style>
     /* Add left and right margins to the page */
     .stApp > div:first-child {
-        margin-left: 60px !important;
-        margin-right: 60px !important;
+        margin-left: 30px !important;
+        margin-right: 30px !important;
     }
 
     /* Alternative: target the block container with margins */
     .block-container {
-        margin-left: 60px !important;
-        margin-right: 60px !important;
+        margin-left: 30px !important;
+        margin-right: 30px !important;
         max-width: calc(100% - 120px) !important;
     }
 
@@ -412,16 +412,16 @@ elif st.session_state.test_stage == "test":
     }
 
     .stCheckbox {
-        margin: 0.5rem 0 !important;
+        margin: 0.3rem 0 !important;
     }
 
     .stProgress {
-        margin: 0.5rem 0 !important;
+        margin: 0.3rem 0 !important;
     }
 
     /* Hide unnecessary margins */
     .stMarkdown hr {
-        margin: 0.5rem 0 !important;
+        margin: 0.3rem 0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
